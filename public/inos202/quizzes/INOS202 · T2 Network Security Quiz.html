@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>INOS202 · T2 Network Security Quiz</title>
+<style>
+:root{color-scheme:dark;--ink:#eef2fb;--dim:#9aa8c4;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);line-height:1.55;background:radial-gradient(circle at 8% 0,rgba(6,182,212,.2),transparent 40%),radial-gradient(circle at 92% 15%,rgba(249,115,22,.14),transparent 40%),#070b14;background-attachment:fixed}
+#top{position:fixed;top:0;left:0;right:0;z-index:50;padding:env(safe-area-inset-top,0px) 0 0;background:rgba(7,11,20,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;padding:8px 14px 0;font-weight:800;font-size:13px}
+.hd h1{margin:0;font-size:16px;background:linear-gradient(90deg,#06b6d4,#f97316,#a855f7,#22c55e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{padding:3px 11px;border-radius:16px;background:rgba(255,255,255,.08);font-weight:800;font-size:12px}
+#tp{color:#06b6d4}#ap{color:#f97316}#bp{color:#a855f7}#cp{color:#22c55e}
+.bar{height:7px;margin:6px 14px 2px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#06b6d4,#f97316,#a855f7,#22c55e);transition:width .5s}
+.sm{display:flex;gap:6px;padding:2px 14px 8px;font-size:12px;color:var(--dim);flex-wrap:wrap;align-items:center}
+.sm span{font-weight:700}.sm .ok{color:#4ade80}.sm .no{color:#f87171}.sm .un{color:#94a3b8}
+main{max-width:900px;margin:0 auto;padding:130px 14px 40px}
+.sec{margin:28px 0 10px;padding:10px 18px;border-radius:12px;font-weight:800;font-size:17px;color:#07101c}
+.sa{background:linear-gradient(90deg,#06b6d4,#3b82f6)}.sb{background:linear-gradient(90deg,#a855f7,#ec4899)}.sc2{background:linear-gradient(90deg,#22c55e,#14b8a6)}
+.q{margin:12px 0;padding:14px 16px;border-radius:14px;border:1px solid color-mix(in srgb,var(--a) 40%,transparent);border-left:7px solid var(--a);background:linear-gradient(135deg,color-mix(in srgb,var(--a) 13%,transparent),color-mix(in srgb,var(--b) 5%,transparent));transition:transform .25s,box-shadow .25s}
+.q:hover{transform:scale(1.012);box-shadow:0 8px 28px color-mix(in srgb,var(--a) 28%,transparent)}
+.q>p{margin:0 0 6px;font-weight:700;font-size:15px}.q>p b{color:var(--a);margin-right:5px}.q>p em{float:right;font-style:normal;color:var(--a);font-size:12px}
+.src{font-size:11px;color:var(--dim);margin-bottom:8px}
+.op{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 13px;border-radius:10px;color:var(--ink);font:14.5px inherit;font-family:inherit;cursor:pointer;background:rgba(255,255,255,.05);border:2px solid var(--line);transition:transform .18s,border-color .18s}
+.op:hover:not(:disabled){transform:scale(1.03);border-color:var(--a)}.op:disabled{cursor:default}
+.op.ok{background:rgba(34,197,94,.22);border-color:#22c55e}.op.no{background:rgba(239,68,68,.22);border-color:#ef4444}
+.nt{display:block;font-size:12px;font-style:italic;color:var(--dim);margin-top:3px}.op.ok .nt{color:#bbf7d0}.op.no .nt{color:#fca5a5}
+.fb{display:none;margin-top:8px;padding:8px 12px;border-radius:9px;background:rgba(6,182,212,.12);font-size:14px}
+.row{display:flex;gap:8px;margin-bottom:4px}
+input{flex:1;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:rgba(0,0,0,.3);color:var(--ink);font:15px inherit;font-family:inherit}
+input:focus{outline:0;border-color:var(--a)}.in.ok{background:rgba(34,197,94,.22);border-color:#22c55e}.in.no{background:rgba(239,68,68,.22);border-color:#ef4444}
+textarea{width:100%;min-height:90px;resize:vertical;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:rgba(0,0,0,.3);color:var(--ink);font:14.5px inherit;font-family:inherit;margin-bottom:8px}
+textarea:focus{outline:0;border-color:var(--a)}textarea[readonly]{opacity:.85}
+.go{cursor:pointer;border:0;border-radius:22px;padding:9px 20px;font:800 14px inherit;font-family:inherit;color:#07101c;background:linear-gradient(135deg,var(--a),var(--b));transition:transform .2s;display:inline-block}
+.go:hover:not(:disabled){transform:scale(1.1)}.go:disabled{opacity:.35}
+.memo{display:none;margin-top:10px;padding:12px 14px;border-radius:11px;background:rgba(134,239,172,.13);border:1px solid rgba(134,239,172,.4);font-size:14px}
+.memo b{color:#86efac}.memo ul{margin:4px 0;padding-left:18px}.memo li{margin:3px 0}
+.mk{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px}
+.mk button{width:34px;height:34px;border-radius:10px;border:2px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink);font:800 14px inherit;font-family:inherit;cursor:pointer;transition:transform .18s}
+.mk button:hover{transform:scale(1.2);border-color:var(--a)}.mk button.on{background:linear-gradient(135deg,var(--a),var(--b));color:#07101c;border-color:transparent}
+.tip{padding:8px 12px;border-radius:9px;background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.4);font-size:13px;margin:6px 0}
+.res{display:none;margin-bottom:20px;padding:22px;border-radius:18px;border:2px solid #06b6d4;background:rgba(6,182,212,.1);text-align:center}
+.res h2{font-size:38px;margin:0 0 6px}
+.res table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;text-align:left}
+.res td,.res th{padding:7px 10px;border-bottom:1px solid var(--line)}
+.rt{cursor:pointer;border:0;border-radius:24px;padding:11px 24px;font:800 15px inherit;font-family:inherit;color:#07101c;transition:transform .2s;margin:6px}
+.rt:hover{transform:scale(1.08)}
+</style></head><body>
+<div id="top">
+  <div class="hd"><h1>📡 T2 Network Security · INOS202</h1><div class="pills"><span class="pill" id="tp">0 / 30 · 0%</span><span class="pill" id="ap">A: 0/12</span><span class="pill" id="bp">B: 0/10</span><span class="pill" id="cp">C: 0/8</span></div></div>
+  <div class="bar"><i id="pb"></i></div>
+  <div class="sm">Progress: <span id="dn">0</span>/30 answered &nbsp;|&nbsp;<span class="ok">■</span> Correct &nbsp;<span class="no">■</span> Wrong &nbsp;<span class="un">■</span> Not yet</div>
+</div>
+<main>
+<div class="res" id="res"></div>
+
+<div class="sec sa">Part A · Multiple Choice · 12 marks (1 per question · click once, locked)</div>
+<div class="tip">🧠 House analogy: <b>Asset</b> = valuables · <b>Vulnerability</b> = unlocked window · <b>Threat</b> = burglar · <b>Exploit</b> = climbing in · <b>Mitigation</b> = lock/alarm.<br>CIA: <b>C</b>onfidentiality (AES) · <b>I</b>ntegrity (SHA) · <b>A</b>vailability (redundancy). Hacker hats: <b>White</b> = good · <b>Gray</b> = between · <b>Black</b> = criminal.</div>
+<div id="Aq"></div>
+
+<div class="sec sb">Part B · One Word · 10 marks (type your answer, press Check or Enter)</div>
+<div id="Bq"></div>
+
+<div class="sec sc2">Part C · Text Questions · 8 marks (write then reveal the memo, self-mark)</div>
+<div id="Cq"></div>
+
+<div style="text-align:center;margin-top:30px">
+  <button class="rt" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)" id="finBtn">🏁 Finish &amp; See Results</button>
+  <button class="rt" style="background:linear-gradient(135deg,#f97316,#eab308)" onclick="location.reload()">🔁 Retry</button>
+</div>
+</main>
+
+<script>
+const G=[['#06b6d4','#3b82f6'],['#f97316','#eab308'],['#a855f7','#ec4899'],['#22c55e','#14b8a6'],['#38bdf8','#6366f1'],['#f43f5e','#f97316'],['#84cc16','#10b981'],['#f472b6','#fb923c']];
+
+// MC: [question, correct, 'w1|w2|w3', 'why correct ~ w1 ~ w2 ~ w3', 'src']
+const MC=[
+['Which term describes a weakness in a system or design that could be exploited?',
+ 'Vulnerability',
+ 'Asset|Threat|Risk',
+ 'A vulnerability is a flaw or weakness (the unlocked window in the house analogy).~An asset is anything of value to the organisation.~A threat is a potential danger — the burglar, not the window.~Risk is the likelihood that a threat exploits a vulnerability.',
+ 'Slide 4'],
+['Which threat actor finds exploits and reports them to vendors, sometimes for prizes?',
+ 'Vulnerability brokers',
+ 'White hat hackers|Hacktivists|Script kiddies',
+ 'Vulnerability brokers are usually gray hats who sell or disclose discovered exploits.~White hats are ethical hackers working legally, not for prizes.~Hacktivists protest organisations or governments publicly.~Script kiddies run existing tools with little knowledge.',
+ 'Slides 9–10'],
+['Which malware self-replicates and spreads automatically without any user action?',
+ 'Worm',
+ 'Virus|Trojan|Adware',
+ 'Worms exploit software vulnerabilities to spread across the network automatically.~Viruses require a human action (opening a file) to spread.~Trojans look useful but hide malicious code; they do not self-replicate.~Adware shows unsolicited adverts, not self-replicating.',
+ 'Slide 19'],
+['A targeted phishing email crafted for a specific individual or organisation is called…',
+ 'Spear phishing',
+ 'Phishing|Spam|Pretexting',
+ 'Spear phishing is tailored to a specific target, making it more convincing.~Phishing is a broad, untargeted fraudulent email campaign.~Spam is bulk junk email, often unrelated to a specific person.~Pretexting invents a scenario to extract info, usually by phone.',
+ 'Slides 24–25'],
+['Which social engineering technique involves leaving a malware-infected USB drive in a public place?',
+ 'Baiting',
+ 'Tailgating|Shoulder surfing|Dumpster diving',
+ 'Baiting tempts a victim to plug in a found device.~Tailgating follows an authorised person into a secure area physically.~Shoulder surfing looks over someone\'s shoulder to see credentials.~Dumpster diving searches bins for discarded confidential documents.',
+ 'Slide 25'],
+['A SYN flood attack leaves the server with many half-open connections because…',
+ 'The attacker never replies to the SYN-ACK',
+ 'The attacker forges FIN packets|The server rejects all SYNs|The attacker fills the MAC table',
+ 'The actor sends many SYNs and ignores the SYN-ACKs, leaving the server waiting with half-open sessions.~FIN packets terminate sessions; the flood is about SYN, not FIN.~The server accepts the SYNs; that is the problem.~MAC table flooding is a Layer 2 attack; a SYN flood is TCP/IP.',
+ 'Slides 35–37'],
+['Which attack type embeds non-DNS traffic inside DNS messages to bypass security?',
+ 'DNS tunnelling',
+ 'DNS cache poisoning|Domain shadowing|Fast flux',
+ 'DNS tunnelling hides other protocol traffic in DNS to talk to botnets or exfiltrate data.~Cache poisoning redirects users to malicious sites by injecting false records.~Domain shadowing silently creates sub-domains; no tunnelling of data.~Fast flux rapidly changes DNS host IPs to hide phishing sites.',
+ 'Slide 50'],
+['Cryptographic hashing (e.g. SHA) addresses which CIA component?',
+ 'Integrity',
+ 'Confidentiality|Availability|Authentication',
+ 'Integrity: hashing detects any unauthorised alteration of data.~Confidentiality is addressed by encryption such as AES.~Availability is addressed by redundant services and links.~Authentication is part of access control, not a CIA triad component.',
+ 'Slide 54'],
+['A Smurf attack is an example of which category?',
+ 'Amplification and reflection (DDoS)',
+ 'SYN flood|ARP cache poisoning|DNS tunnelling',
+ 'The Smurf attack uses broadcast addresses to amplify traffic and reflect it at a victim.~SYN floods exhaust TCP half-open connections, not broadcast amplification.~ARP poisoning targets address resolution caches.~DNS tunnelling hides data in DNS messages.',
+ 'Slide 31'],
+['Which malware gives the attacker administrator-level access and is very difficult to detect?',
+ 'Rootkit',
+ 'Spyware|Ransomware|Adware',
+ 'Rootkits alter OS commands, firewalls and antivirus, hiding themselves and providing a backdoor.~Spyware collects and sends user data but does not hide at root level.~Ransomware encrypts files and demands payment; it is detected quickly.~Adware shows pop-up adverts and is a low-level threat.',
+ 'Slide 18'],
+['In a UDP flood attack, what causes the bandwidth to be consumed?',
+ 'The server sends ICMP port unreachable for every closed port hit',
+ 'The attacker floods SYN packets|The switch table overflows|The server retransmits lost packets',
+ 'UDP flood targets closed ports; every close generates an ICMP unreachable reply, consuming bandwidth.~SYN packets are TCP; UDP flood uses UDP.~Switch table overflow is a MAC flooding attack.~UDP has no retransmission; that is a TCP feature.',
+ 'Slide 42'],
+['Which tool is specifically designed for vulnerability scanning of networks and systems?',
+ 'Nessus',
+ 'Wireshark|Metasploit|macof',
+ 'Nessus scans for open ports and known vulnerabilities.~Wireshark is a packet sniffer/analyser.~Metasploit exploits vulnerabilities; it does not just scan.~macof performs MAC flooding.',
+ 'Slide 13']
+];
+
+// OW: [question, 'correct|alt', 'src', 'explanation']
+const OW=[
+['A mechanism that takes advantage of a vulnerability is called an ___.','exploit','Slide 4','An exploit is the actual method or code that abuses the vulnerability to cause harm.'],
+['Intercepting and "listening" to network traffic without altering it is called ___.','eavesdropping|sniffing|snooping','Slide 14','Also called sniffing or snooping; the actor reads packets without changing them.'],
+['Malware that records keystrokes in web forms to steal card numbers is a ___.','keylogger','Slide 17','Keyloggers are a type of Trojan; they silently log what the user types.'],
+['A three-way handshake starts with the client sending a ___ packet.','SYN','Slide 36','SYN (synchronise) opens the connection; the server replies SYN-ACK, then the client sends ACK.'],
+['Unauthorised discovery and mapping of systems before an attack is a ___ attack.','reconnaissance','Slide 21','Reconnaissance includes Google searches, ping sweeps and port scans.'],
+['UDP is a ___ protocol with no connection setup or retransmission.','connectionless','Slide 41','Connectionless = lower overhead; great for streaming and VoIP but no reliability.'],
+['Sending spoofed ARP replies to corrupt address tables is called ARP cache ___.','poisoning','Slide 44','Once poisoned, traffic flows to the attacker instead of the real host.'],
+['The CIA triad letter A stands for ___.','availability','Slide 54','Availability = authorised users always have uninterrupted access to resources.'],
+['A rogue DHCP server giving clients a false default gateway is called DHCP ___.','spoofing','Slide 51','DHCP spoofing is a man-in-the-middle setup; clients route traffic through the attacker.'],
+['IPS signatures that match a single packet are called ___ signatures.','atomic','Slide 58','Atomic = one packet; composite signatures need multiple packets to match.']
+];
+
+// TB: [question, marks, [bullets], 'keywords', 'src']
+const TB=[
+['Explain the difference between a virus and a worm. How does each spread and what user action is needed?',
+ 2,
+ ['Virus: attaches to code, files or software and runs when the user opens the infected file — requires human action','Virus effects: corrupts or deletes files, spreads via email, lies dormant','Worm: self-replicating; exploits software vulnerabilities to spread automatically across the network with no user action','Worm intent: usually slows or disrupts network operations by consuming bandwidth'],
+ 'virus,human action,open,worm,self-replicating,automatic,network,no user',
+ 'Slides 16 and 19'],
+['Describe how a TCP SYN flood attack works, step by step, and what the result is for legitimate users.',
+ 2,
+ ['Attacker sends many SYN requests to the server','Server replies with SYN-ACK to each one and waits for the final ACK','Attacker never sends the ACK, leaving each connection half-open','Server connection queue fills up with half-open sessions','Legitimate users cannot connect because the server has no capacity left (DoS)'],
+ 'syn,syn-ack,half-open,ack,queue,legitimate,dos',
+ 'Slide 37'],
+['Explain how ARP cache poisoning is set up and what an attacker can do in passive and active modes.',
+ 2,
+ ['PC-A asks for the gateway\'s MAC; attacker sends two spoofed gratuitous ARP replies with its own MAC','PC-A\'s cache now maps the gateway\'s IP to the attacker\'s MAC; R1\'s cache maps PC-A\'s IP to the attacker','Traffic now flows through the attacker (man-in-the-middle)','Passive poisoning: steal confidential data by reading intercepted traffic','Active poisoning: modify data in transit or inject malicious content'],
+ 'gratuitous,arp,spoofed,mac,cache,gateway,man-in-the-middle,passive,active',
+ 'Slide 44'],
+['Describe the CIA triad. For each component, state what it means and name one cryptographic tool that achieves it.',
+ 2,
+ ['Confidentiality: only authorised users can access data — achieved with encryption such as AES','Integrity: data is protected from unauthorised modification — achieved with hashing such as SHA','Availability: authorised users always have uninterrupted access — achieved with redundant services, gateways and links (not purely cryptographic)','Defence in depth uses all three together across VPN, firewalls, IPS and AAA'],
+ 'confidentiality,aes,integrity,sha,availability,redundant,encryption',
+ 'Slide 54']
+];
+
+// ---- engine (identical to T1) -------------------------------------------
+let sc=0,dn=0,tA=0,tB=0,tC=0,fin=false;
+function upd(){
+  const pct=Math.round(sc/30*100);
+  document.getElementById('tp').textContent=sc+' / 30 · '+pct+'%';
+  document.getElementById('ap').textContent='A: '+tA+'/12';
+  document.getElementById('bp').textContent='B: '+tB+'/10';
+  document.getElementById('cp').textContent='C: '+tC+'/8';
+  document.getElementById('pb').style.width=(dn/30*100)+'%';
+  document.getElementById('dn').textContent=dn;
+}
+const nz=s=>s.toLowerCase().replace(/[\s.]/g,'');
+
+// MCQ
+const Aq=document.getElementById('Aq');
+MC.forEach((q,i)=>{
+  const [a,b]=G[i%8];
+  const expl=q[3].split('~');
+  const ws=q[2].split('|');
+  const pos=(i*3+5)%4;
+  const opts=ws.slice();opts.splice(pos,0,q[1]);
+  const c=document.createElement('div');c.className='q';c.style.cssText='--a:'+a+';--b:'+b;
+  c.innerHTML='<p><b>A'+(i+1)+'.</b>'+q[0]+'<em>[1]</em></p><div class="src">📖 '+q[4]+'</div>'+
+    opts.map((o,k)=>'<button class="op">'+'ABCD'[k]+'. '+o.replace(/</g,'&lt;')+'</button>').join('')+
+    '<div class="fb"></div>';
+  c.querySelectorAll('.op').forEach((bn,k)=>bn.onclick=()=>{
+    if(c.dataset.d)return;c.dataset.d=1;
+    const ok=k==pos;if(ok){sc++;tA++;}else tA++;dn++;
+    let di=1;
+    c.querySelectorAll('.op').forEach((x,j)=>{
+      x.disabled=true;
+      const note=j==pos?expl[0]:expl[di++];
+      x.insertAdjacentHTML('beforeend','<span class="nt">'+(j==pos?'✔ ':'✘ ')+note.replace(/</g,'&lt;')+'</span>');
+      if(j==pos)x.classList.add('ok');else if(j==k)x.classList.add('no');
+    });
+    const fb=c.querySelector('.fb');fb.style.display='block';
+    fb.innerHTML=(ok?'✅ Correct! +1 · ':'❌ ')+expl[0];
+    upd();
+  });
+  Aq.appendChild(c);
+});
+
+// One-word
+const Bq=document.getElementById('Bq');
+OW.forEach((q,i)=>{
+  const [a,b]=G[(i+2)%8];
+  const c=document.createElement('div');c.className='q';c.style.cssText='--a:'+a+';--b:'+b;
+  c.innerHTML='<p><b>B'+(i+1)+'.</b>'+q[0]+'<em>[1]</em></p><div class="src">📖 '+q[2]+'</div>'+
+    '<div class="row"><input class="in" placeholder="One word…"><button class="go" style="--a:'+a+';--b:'+b+'">Check</button></div>'+
+    '<div class="fb"></div>';
+  const inp=c.querySelector('input'),btn=c.querySelector('.go');
+  const chk=()=>{
+    if(c.dataset.d||!inp.value.trim())return;
+    const ok=q[1].split('|').some(x=>nz(x)==nz(inp.value));
+    c.dataset.d=1;if(ok){sc++;tB++;}else tB++;dn++;
+    inp.readOnly=true;inp.classList.add(ok?'ok':'no');btn.disabled=true;
+    const fb=c.querySelector('.fb');fb.style.display='block';
+    fb.innerHTML=(ok?'✅ +1 · ':'❌ <b>'+q[1].split('|')[0]+'</b> · ')+q[3];
+    upd();
+  };
+  btn.onclick=chk;inp.onkeydown=e=>{if(e.key=='Enter')chk()};
+  Bq.appendChild(c);
+});
+
+// Text boxes
+const Cq=document.getElementById('Cq');
+TB.forEach((q,i)=>{
+  const [a,b]=G[(i+4)%8];
+  const c=document.createElement('div');c.className='q';c.style.cssText='--a:'+a+';--b:'+b;
+  const kws=q[3].split(',');
+  c.innerHTML='<p><b>C'+(i+1)+'.</b>'+q[0]+'<em>['+q[1]+']</em></p><div class="src">📖 '+q[4]+'</div>'+
+    '<textarea placeholder="Write your answer as you would on paper…"></textarea>'+
+    '<button class="go" style="--a:'+a+';--b:'+b+'">Show memo</button>'+
+    '<div class="memo"><b>✅ Model answer</b><ul>'+q[2].map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+    '<div class="mk" style="display:none"><span style="color:var(--dim);font-size:13px">Your mark:</span>'+
+    Array.from({length:q[1]+1},(_,k)=>'<button style="--a:'+a+';--b:'+b+'">'+k+'</button>').join('')+
+    '<span style="color:var(--dim);font-size:13px"> / '+q[1]+'</span></div>';
+  const ta=c.querySelector('textarea'),btn=c.querySelector('.go'),memo=c.querySelector('.memo'),mk=c.querySelector('.mk');
+  btn.onclick=()=>{
+    ta.readOnly=true;btn.style.display='none';memo.style.display='block';mk.style.display='flex';
+    const val=ta.value.toLowerCase(),found=kws.filter(k=>val.includes(k.trim()));
+    memo.insertAdjacentHTML('beforeend','<div class="tip" style="margin-top:8px">🔍 Key words found: <b>'+found.length+'/'+kws.length+'</b> ('+Math.round(found.length/kws.length*100)+'%) — use this to guide your self-mark.</div>');
+  };
+  mk.querySelectorAll('button').forEach((bk,k)=>bk.onclick=()=>{
+    if(fin)return;
+    const prev=+c.dataset.m||0;sc+=k-prev;tC+=k-prev;c.dataset.m=k;
+    if(!c.dataset.d){c.dataset.d=1;dn++;}
+    mk.querySelectorAll('button').forEach((x,j)=>x.classList.toggle('on',j==k));
+    upd();
+  });
+  Cq.appendChild(c);
+});
+
+// Finish
+document.getElementById('finBtn').onclick=()=>{
+  fin=true;
+  document.querySelectorAll('.mk button').forEach(b=>b.disabled=true);
+  const pct=Math.round(sc/30*100);
+  const rows=[['Part A · MCQ',tA,12],['Part B · One Word',tB,10],['Part C · Text',tC,8]];
+  const weak=rows.slice().sort((x,y)=>x[1]/x[2]-y[1]/y[2]);
+  const res=document.getElementById('res');res.style.display='block';
+  res.innerHTML='<h2>'+(pct>=75?'🏆':pct>=50?'👍':'💪')+' '+sc+' / 30 ('+pct+'%)</h2>'+
+    '<p>'+(pct>=75?'Solid! You know this topic well.':pct>=50?'Good base. Revise the red section.':'Re-read the notes and retry.')+'</p>'+
+    '<table><tr><th>Section</th><th>Your marks</th><th>Max</th></tr>'+
+    rows.map(r=>'<tr><td>'+r[0]+'</td><td style="color:'+(r[1]/r[2]>=.75?'#4ade80':r[1]/r[2]>=.5?'#facc15':'#f87171')+'">'+r[1]+'</td><td>'+r[2]+'</td></tr>').join('')+
+    '</table><p>🎯 Weakest: <b>'+weak[0][0]+'</b></p>'+
+    '<button class="rt" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)" onclick="location.reload()">🔁 Try again</button>';
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+upd();
+</script></body></html>

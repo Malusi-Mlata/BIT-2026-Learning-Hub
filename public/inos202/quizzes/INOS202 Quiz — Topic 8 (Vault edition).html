@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>INOS202 Quiz - Topic 8 (Vault edition)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03120e; --panel:#0a211a; --panel2:#0f2c23; --line:#1f4a3b; --text:#eafff5; --mute:#8fb8a6;
+  --gold:#f5c451; --mint:#4df0ae; --coral:#ff5c7a; --cyan:#4fd8ff; --term:#02100c;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --display:'Syne','Instrument Sans',system-ui,sans-serif;
+  --mono:'Martian Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 150px);
+  background:
+   radial-gradient(900px 560px at 88% -8%,rgba(245,196,81,.13),transparent 62%),
+   radial-gradient(800px 640px at -8% 34%,rgba(77,240,174,.12),transparent 62%),
+   radial-gradient(700px 500px at 60% 110%,rgba(79,216,255,.08),transparent 60%),
+   var(--bg);
+  background-attachment:fixed}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:transparent;color:var(--text);font:400 16px/1.55 var(--sans);-webkit-text-size-adjust:100%;position:relative;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 24px)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='208' viewBox='0 0 230 208'%3E%3Cg font-family='ui-monospace,Menlo,Consolas,monospace' font-size='11'%3E%3Ctext x='6' y='16' fill='%234df0ae' fill-opacity='.085'%3E3A F1 09 7C D2 4E B8 15%3C/text%3E%3Ctext x='6' y='34' fill='%23f5c451' fill-opacity='.10'%3ESDN  VRF  IaaS%3C/text%3E%3Ctext x='6' y='52' fill='%234df0ae' fill-opacity='.085'%3E9E 22 C0 6B 7D 81 F4 0A%3C/text%3E%3Ctext x='6' y='70' fill='%23f5c451' fill-opacity='.10'%3ECEF  VM  HYPERV%3C/text%3E%3Ctext x='6' y='88' fill='%234df0ae' fill-opacity='.085'%3E4C B7 E3 58 12 AF 90 3D%3C/text%3E%3Ctext x='6' y='106' fill='%234df0ae' fill-opacity='.085'%3EE1 5A 7F 08 C9 26 B4 D3%3C/text%3E%3Ctext x='6' y='124' fill='%23f5c451' fill-opacity='.10'%3EIaaS  PaaS  SaaS%3C/text%3E%3Ctext x='6' y='142' fill='%234df0ae' fill-opacity='.085'%3E18 F7 6D A2 5B 0E 93 C4%3C/text%3E%3Ctext x='6' y='160' fill='%234df0ae' fill-opacity='.085'%3E7B 30 D8 E5 4F 91 2A 6C%3C/text%3E%3Ctext x='6' y='178' fill='%23f5c451' fill-opacity='.10'%3EOpenFlow  E-W  N-S%3C/text%3E%3Ctext x='6' y='196' fill='%234df0ae' fill-opacity='.085'%3EC6 0D 84 F9 33 B1 5E 7A%3C/text%3E%3C/g%3E%3C/svg%3E");background-size:230px 208px;transform:rotate(-8deg) scale(1.3)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(3,18,14,.93);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--gold);
+  box-shadow:0 8px 30px rgba(0,0,0,.45);padding:10px 16px 10px}
+.hud-inner{max-width:900px;margin:0 auto}
+.hud-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eyebrow{font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+h1{font:800 21px/1.05 var(--display);margin:7px 0 0;letter-spacing:-.01em}
+.gauge-wrap{display:flex;align-items:center;gap:8px}
+.gauge{width:100px;height:66px;flex:none;overflow:visible}
+.readout{text-align:right}
+.marks{font:800 24px/1 var(--display)}
+.marks small{font:500 11px var(--mono);color:var(--mute)}
+.chips{display:flex;gap:6px;justify-content:flex-end;align-items:center;margin-top:5px;flex-wrap:wrap}
+.pct{font:600 11px var(--mono);color:var(--bg);background:linear-gradient(135deg,var(--mint),var(--cyan));padding:3px 8px;border-radius:999px}
+.vault{font:600 10px var(--mono);letter-spacing:.08em;color:var(--gold);border:1px solid rgba(245,196,81,.55);padding:2px 8px;border-radius:999px}
+.reset{background:transparent;border:1px solid var(--line);color:var(--mute);border-radius:8px;padding:2px 8px;font:500 10px var(--mono);cursor:pointer}
+.reset:hover{border-color:var(--coral);color:var(--coral)}
+.strip{display:flex;gap:2px;padding:10px 0 0}
+.cell{flex:1;height:6px;border-radius:2px;background:#1f4a3b;min-width:2px;transition:background .2s}
+.cell.ok{background:var(--mint)} .cell.bad{background:var(--coral)}
+
+main{max-width:900px;margin:0 auto;padding:8px 16px 72px}
+.intro{margin:16px 0 4px;color:var(--mute);font-size:14.5px}
+.intro code{font:400 11.5px var(--mono);background:var(--term);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+.tier{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:26px 0 4px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(10,33,26,.9)}
+.tier-name{font:700 17px var(--display);display:flex;align-items:center;gap:10px}
+.tier-name::before{content:"";width:12px;height:12px;border-radius:3px;transform:rotate(45deg)}
+.tier-mcq .tier-name::before{background:var(--cyan)} .tier-easy .tier-name::before{background:var(--mint)} .tier-hard .tier-name::before{background:var(--coral)}
+.tier-score{font:400 11px var(--mono);color:var(--mute)}
+
+.card{position:relative;background:linear-gradient(180deg,rgba(15,44,35,.94),rgba(10,33,26,.94));border:1px solid var(--line);border-radius:16px;padding:18px 18px 18px 22px;margin:12px 0}
+.card::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:4px;border-radius:0 4px 4px 0;background:var(--cyan)}
+.qhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.qn{font:700 11px var(--mono);color:var(--bg);background:var(--cyan);border-radius:6px;padding:3px 8px}
+.src{font:400 10.5px var(--mono);color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+.wt{font:600 10.5px var(--mono);color:var(--gold);margin-left:auto}
+.q{margin:4px 0 10px;font-size:17px;font-weight:500}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-top:8px;cursor:pointer;transition:border-color .12s,background .12s,transform .12s}
+.opt:hover:not(:disabled){border-color:var(--gold);background:#143a2e;transform:translateX(2px)}
+.opt:disabled{cursor:default}
+.ltr{flex:none;width:26px;height:26px;border-radius:8px;background:#1f4a3b;display:grid;place-items:center;font:700 11px var(--mono)}
+.opt.right{border-color:var(--mint);background:rgba(77,240,174,.13)} .opt.right .ltr{background:var(--mint);color:var(--bg)}
+.opt.wrong{border-color:var(--coral);background:rgba(255,92,122,.13)} .opt.wrong .ltr{background:var(--coral);color:var(--bg)}
+
+.term{display:flex;align-items:center;background:var(--term);border:1px solid var(--line);border-radius:12px;padding:0 12px;margin-top:6px}
+.term:focus-within{border-color:var(--gold)}
+.term .prompt{font:600 11px var(--mono);color:var(--gold);white-space:nowrap}
+.term input{flex:1;min-width:0;background:transparent;border:0;outline:0;padding:13px 8px;font:400 16px var(--sans)}
+.term.locked{opacity:.85}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{border:0;border-radius:12px;padding:10px 17px;font:700 14px var(--sans);cursor:pointer;color:#03120e;transition:transform .1s,filter .15s}
+.btn:hover:not(:disabled){filter:brightness(1.12)} .btn:active:not(:disabled){transform:translateY(1px)} .btn:disabled{opacity:.45;cursor:default}
+.b-cyan{background:linear-gradient(135deg,#4df0ae,#4fd8ff)} .b-ghost{background:transparent;color:var(--mute);border:1px solid var(--line)} .b-ghost:hover:not(:disabled){color:var(--text);border-color:var(--mute)}
+.hint{margin-top:8px;font:400 12px var(--mono);color:var(--gold)}
+.fb{margin-top:12px;padding:10px 12px;border-radius:12px;border-left:4px solid var(--line);background:#06170f;font-size:15px;line-height:1.55}
+.fb.ok{border-left-color:var(--mint)} .fb.bad{border-left-color:var(--coral)} .fb.info{border-left-color:var(--cyan)}
+.fb strong.v-ok{color:var(--mint)} .fb strong.v-bad{color:var(--coral)}
+
+.done{text-align:center;margin:28px 0 6px;padding:18px;border-radius:16px;border:1px solid var(--gold);background:rgba(245,196,81,.08)}
+.done b{font:700 16px var(--display)}
+@media (max-width:520px){ h1{font-size:17px} .marks{font-size:20px} .gauge{width:82px;height:54px} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hud">
+  <div class="hud-inner">
+    <div class="hud-top">
+      <div>
+        <div class="eyebrow">INOS202 &middot; Topic 8 &middot; Quick check</div>
+        <h1>Network Virtualization</h1>
+      </div>
+      <div class="gauge-wrap" aria-live="polite">
+        <svg class="gauge" viewBox="0 0 120 78" aria-hidden="true">
+          <defs><linearGradient id="gGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff5c7a"/><stop offset=".5" stop-color="#f5c451"/><stop offset="1" stop-color="#4df0ae"/></linearGradient></defs>
+          <path d="M12 64 A48 48 0 0 1 108 64" fill="none" stroke="#1f4a3b" stroke-width="9" stroke-linecap="round" pathLength="100"/>
+          <path id="gArc" d="M12 64 A48 48 0 0 1 108 64" fill="none" stroke="url(#gGrad)" stroke-width="9" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" style="opacity:0;transition:stroke-dasharray .7s ease,opacity .2s"/>
+          <g id="gTicks"></g>
+          <text x="12" y="77" font-size="7" fill="#8fb8a6" font-family="ui-monospace,Menlo,monospace">0</text>
+          <text x="108" y="77" font-size="7" fill="#8fb8a6" text-anchor="end" font-family="ui-monospace,Menlo,monospace">20</text>
+          <g id="gNeedle" style="transform-box:view-box;transform-origin:60px 64px;transform:rotate(-90deg);transition:transform .8s cubic-bezier(.25,1.5,.4,1);filter:drop-shadow(0 0 3px rgba(245,196,81,.9))">
+            <line x1="60" y1="64" x2="60" y2="24" stroke="#f5c451" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <circle cx="60" cy="64" r="6" fill="#03120e" stroke="#f5c451" stroke-width="2.5"/>
+        </svg>
+        <div class="readout">
+          <div class="marks"><span id="gotMarks">0</span><small> / 20 marks</small></div>
+          <div class="chips"><span class="pct" id="pctChip">0%</span><span class="vault" id="vault">LOCKED</span><button class="reset" id="resetBtn" type="button">Reset</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="strip" id="strip" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main>
+  <p class="intro">ENSA Module 13 - Cloud Computing, Virtualization, Virtual Network Infrastructure, Software-Defined Networking, and Controllers. 20 questions: 10 MCQs, then 5 easy + 5 hard one-word terms. Answers lock once picked or submitted.</p>
+  <div id="quiz"></div>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+var MCQ=[
+{sec:"13.1 Cloud Computing",q:"Which NIST-defined cloud service model gives IT managers access to network equipment, virtualized network services, and supporting infrastructure?",o:["SaaS","PaaS","IaaS","ITaaS"],a:2,e:"IaaS (Infrastructure as a Service) provides network equipment and virtualized infrastructure; SaaS delivers applications, PaaS delivers development tools/platforms."},
+{sec:"13.1 Cloud Computing",q:"Which cloud model is built for exclusive use by organisations with shared compliance needs, such as healthcare providers under HIPAA?",o:["Public cloud","Private cloud","Hybrid cloud","Community cloud"],a:3,e:"A community cloud is customised for a specific community with shared functional or compliance needs."},
+{sec:"13.2 Virtualization",q:"What is the term for enterprise servers that historically sat idle for long periods while still consuming space, power and cooling?",o:["Server virtualization","Server sprawl","Server consolidation","Server clustering"],a:1,e:"Server sprawl describes dedicated servers wasting energy and space relative to the service they actually deliver."},
+{sec:"13.2 Virtualization",q:"Which hypervisor type installs directly on the hardware ('bare metal') and is typically used on enterprise servers and data center devices?",o:["Type 1 hypervisor","Type 2 hypervisor","Container hypervisor","Guest hypervisor"],a:0,e:"Type 1 (bare-metal) hypervisors install directly on hardware, giving more efficient, scalable performance than hosted (Type 2) hypervisors."},
+{sec:"13.2 Virtualization",q:"What is it called when a management console runs OS instances whose combined memory allocation exceeds the server's actual total memory?",o:["Overallocation","Overclocking","Oversubscription penalty","Server sprawl"],a:0,e:"Over allocation is common practice, since VM instances rarely all need their full allocated resources at once."},
+{sec:"13.3 Virtual Network Infrastructure",q:"Considerable traffic exchanged between virtual servers, changing in location and intensity over time, is best described as:",o:["North-South traffic","East-West traffic","Client-server traffic","Management traffic"],a:1,e:"East-West traffic flows between virtual servers, often within the data center; North-South traffic heads offsite, e.g. to the internet."},
+{sec:"13.3 Virtual Network Infrastructure",q:"What is it called when a single routing device is segmented into independent virtual routing tables (acronym)?",o:["VRF","VLAN","VTP","VXLAN"],a:0,e:"VRF (Virtual Routing and Forwarding) virtualizes a device's routing table into multiple independent instances."},
+{sec:"13.4 Software-Defined Networking",q:"Which plane makes forwarding decisions using routing tables, STP and the ARP table, typically processed by the CPU?",o:["Data plane","Control plane","Management plane","Application plane"],a:1,e:"The control plane is the 'brains' making forwarding decisions; the data plane physically forwards traffic based on those decisions."},
+{sec:"13.4 Software-Defined Networking",q:"What does SDN fundamentally do to traditional router/switch architecture?",o:["Combines the control and data planes on every device","Separates the control plane from the data plane, moving it to a centralized controller","Removes the data plane entirely","Removes the need for a management plane"],a:1,e:"SDN separates control-plane functions from each device and centralizes them in an SDN controller, leaving devices to focus on forwarding."},
+{sec:"13.5 Controllers",q:"Which API type does an SDN controller use to define data-plane behaviour on downstream switches and routers, with OpenFlow as a common example?",o:["Northbound API","Southbound API","East-West API","Management API"],a:1,e:"Southbound APIs (e.g. OpenFlow) let the controller define downstream switch/router behaviour; northbound APIs face upstream applications."}
+];
+
+var OW=[
+{diff:"easy",sec:"13.1 Cloud Computing",q:"Which cloud model is available to the general public?",a:["public"],hint:"Opposite of private.",e:"Public clouds are made available to the general population."},
+{diff:"easy",sec:"13.2 Virtualization",q:"Which piece of software adds an abstraction layer on top of physical hardware to create virtual machines?",a:["hypervisor"],hint:"Sits between hardware/firmware and the OS.",e:"A hypervisor creates and manages virtual machines on top of physical hardware."},
+{diff:"easy",sec:"13.3 Virtual Network Infrastructure",q:"Traffic destined for offsite locations such as the internet or another data center is called ______-South traffic.",a:["north"],hint:"Opposite direction of East-West.",e:"North-South traffic leaves the data center; East-West stays between servers inside it."},
+{diff:"easy",sec:"13.4 Software-Defined Networking",q:"Which plane is also called the 'forwarding plane', physically moving traffic through a device?",a:["data"],hint:"Also called the forwarding plane.",e:"The data (forwarding) plane is the switch fabric that actually forwards traffic flows."},
+{diff:"easy",sec:"13.5 Controllers",q:"Which acronym names the network architecture that virtualizes the network and centralizes control-plane decisions?",a:["sdn"],hint:"Software-Defined ___.",e:"SDN (Software-Defined Networking) centralizes control-plane decisions in a controller."},
+{diff:"hard",sec:"13.1 Cloud Computing",q:"Which NIST Special Publication number defines the three main cloud computing service models?",a:["800-145","800145"],hint:"A NIST Special Publication number.",e:"NIST Special Publication 800-145 defines SaaS, PaaS and IaaS."},
+{diff:"hard",sec:"13.2 Virtualization",q:"Which hypervisor type is also called a 'hosted' hypervisor, running on top of an existing OS rather than bare metal?",a:["type 2","type2"],hint:"The opposite of 'bare metal'.",e:"Type 2 hypervisors are hosted - they run on top of an existing host OS, unlike Type 1 bare-metal hypervisors."},
+{diff:"hard",sec:"13.4 Software-Defined Networking",q:"Which Cisco Layer 3 switching technology lets the data plane forward packets without consulting the control plane?",a:["cef"],hint:"Cisco Express ___.",e:"CEF (Cisco Express Forwarding) lets the data plane forward packets without asking the control plane each time."},
+{diff:"hard",sec:"13.4 Software-Defined Networking",q:"Which SDN component, developed at Stanford, manages traffic between routers, switches, wireless APs and a controller, and is a basic building block of SDN solutions?",a:["openflow"],hint:"Also the most common southbound API.",e:"OpenFlow, developed at Stanford, is a foundational SDN protocol and the most widely implemented southbound API."},
+{diff:"hard",sec:"13.5 Controllers",q:"In an SDN switch's flow-management tables, which table triggers rate-limiting and other performance-related actions on a flow?",a:["meter","meter table"],hint:"Named after a measuring device.",e:"The Meter Table triggers performance actions such as rate-limiting, alongside the Flow Table and Group Table."}
+];
+
+var ITEMS=[];
+MCQ.forEach(function(x,i){x.id="m"+i;x.kind="mcq";x.tier="mcq";x.marks=1;x.label="Q"+(i+1);ITEMS.push(x);});
+var ei=0,hi=0;
+OW.forEach(function(x){
+  if(x.diff==="easy"){x.id="we"+ei;x.label="W"+(++ei);}else{x.id="wh"+hi;x.label="H"+(++hi);}
+  x.kind="one";x.tier=x.diff;x.marks=1;ITEMS.push(x);
+});
+var TIER_LABEL={mcq:"MCQ",easy:"One-word - easy",hard:"One-word - hard"};
+
+var S={},cells={};
+function $(sel,root){return (root||document).querySelector(sel);}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+function stripKey(s){return String(s).toLowerCase().replace(/[\u2010-\u2015]/g,"-").replace(/[^a-z0-9]/g,"");}
+
+function vaultLabel(pct){return pct>=100?"WIDE OPEN":(pct>=75?"UNLOCKED":(pct>=50?"CRACKING":(pct>=25?"PICKING":"LOCKED")));}
+
+function recalc(){
+  var got=0;
+  ITEMS.forEach(function(x){
+    var st=S[x.id];
+    if(st)got+=st.got;
+    var c=cells[x.id];
+    if(c)c.className="cell"+(st?(st.got>0?" ok":" bad"):"");
+  });
+  var pctV=Math.round(got/20*100);
+  $("#gotMarks").textContent=got;
+  $("#pctChip").textContent=pctV+"%";
+  $("#gArc").setAttribute("stroke-dasharray",pctV+" 100");
+  $("#gArc").style.opacity=pctV>0?"1":"0";
+  $("#gNeedle").style.transform="rotate("+(-90+180*pctV/100)+"deg)";
+  $("#vault").textContent=vaultLabel(pctV);
+  ["mcq","easy","hard"].forEach(function(t){
+    var items=ITEMS.filter(function(x){return x.tier===t;});
+    var d=items.filter(function(x){return !!S[x.id];}).length;
+    var g=items.reduce(function(a,x){return a+(S[x.id]?S[x.id].got:0);},0);
+    var el2=$("#ts-"+t);
+    if(el2)el2.textContent=d+"/"+items.length+" answered \u00b7 "+g+"/"+items.length+" marks";
+  });
+}
+
+function buildGauge(){
+  var g=$("#gTicks"),ns="http://www.w3.org/2000/svg",cx=60,cy=64;
+  for(var i=0;i<=10;i++){
+    var ang=(180-i*18)*Math.PI/180,major=(i%5===0),r1=36,r2=major?28:32;
+    var ln=document.createElementNS(ns,"line");
+    ln.setAttribute("x1",(cx+r1*Math.cos(ang)).toFixed(2));ln.setAttribute("y1",(cy-r1*Math.sin(ang)).toFixed(2));
+    ln.setAttribute("x2",(cx+r2*Math.cos(ang)).toFixed(2));ln.setAttribute("y2",(cy-r2*Math.sin(ang)).toFixed(2));
+    ln.setAttribute("stroke","#8fb8a6");ln.setAttribute("stroke-opacity",major?"0.95":"0.55");ln.setAttribute("stroke-width",major?"2":"1");
+    g.appendChild(ln);
+  }
+}
+function buildStrip(){
+  var strip=$("#strip");strip.innerHTML="";
+  ITEMS.forEach(function(x){var c=el("span","cell");cells[x.id]=c;strip.appendChild(c);});
+}
+
+function feedback(card,cls,html){ $(".fbwrap",card).innerHTML='<div class="fb '+cls+'" role="status">'+html+'</div>'; }
+
+function mcqCard(x){
+  var c=el("article","card");
+  c.innerHTML='<div class="qhead"><span class="qn">'+x.label+'</span><span class="src">'+esc(x.sec)+'</span><span class="wt">1 mark</span></div>'+
+    '<p class="q">'+esc(x.q)+'</p><div class="opts"></div><div class="fbwrap"></div>';
+  var wrap=$(".opts",c);
+  x.o.forEach(function(text,i){
+    var b=el("button","opt",'<span class="ltr">'+"ABCD".charAt(i)+'</span><span>'+esc(text)+'</span>');
+    b.type="button";
+    b.addEventListener("click",function(){
+      if(S[x.id])return;
+      var ok=(i===x.a);
+      S[x.id]={got:ok?x.marks:0};
+      var all=wrap.querySelectorAll(".opt");
+      for(var j=0;j<all.length;j++){ all[j].disabled=true; if(j===x.a)all[j].classList.add("right"); else if(j===i)all[j].classList.add("wrong"); }
+      feedback(c,ok?"ok":"bad",(ok?'<strong class="v-ok">Correct, +1.</strong> ':'<strong class="v-bad">Not quite.</strong> Answer: '+"ABCD".charAt(x.a)+'. ')+esc(x.e));
+      recalc();
+    });
+    wrap.appendChild(b);
+  });
+  return c;
+}
+
+function typedCard(x){
+  var c=el("article","card");
+  c.innerHTML='<div class="qhead"><span class="qn">'+x.label+'</span><span class="src">'+esc(x.sec)+'</span><span class="wt">1 mark</span></div>'+
+    '<p class="q">'+esc(x.q)+'</p>'+
+    '<div class="term"><span class="prompt">answer</span><input type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Your answer" placeholder="type the term"></div>'+
+    '<div class="row"><button type="button" class="btn b-cyan" data-a="check">Check</button>'+
+    (x.hint?'<button type="button" class="btn b-ghost" data-a="hint">Hint</button>':'')+
+    '<button type="button" class="btn b-ghost" data-a="reveal">Reveal</button></div>'+
+    '<div class="hintwrap"></div><div class="fbwrap"></div>';
+  var input=$("input",c),term=$(".term",c);
+  function lock(){ input.disabled=true; term.classList.add("locked"); var bs=c.querySelectorAll(".row .btn"); for(var i=0;i<bs.length;i++)bs[i].disabled=true; }
+  function shown(){ return '<strong>'+esc(x.a[0])+'</strong>'; }
+  function check(){
+    if(S[x.id])return;
+    var v=input.value; if(!v.trim()){input.focus();return;}
+    var ok=x.a.some(function(a){return stripKey(a)===stripKey(v);});
+    S[x.id]={got:ok?x.marks:0}; lock();
+    feedback(c,ok?"ok":"bad",ok?'<strong class="v-ok">Correct, +1.</strong> '+shown():
+      '<strong class="v-bad">Not quite.</strong> Answer: '+shown()+(x.a.length>1?' <span style="color:var(--mute)">(also accepted: '+esc(x.a.slice(1).join(", "))+')</span>':'')+' '+esc(x.e));
+    recalc();
+  }
+  c.addEventListener("click",function(ev){
+    var a=ev.target&&ev.target.getAttribute&&ev.target.getAttribute("data-a");
+    if(!a)return;
+    if(a==="check")check();
+    else if(a==="hint"){$(".hintwrap",c).innerHTML='<div class="hint">Hint: '+esc(x.hint)+'</div>';}
+    else if(a==="reveal"){ if(S[x.id])return; S[x.id]={got:0}; lock(); feedback(c,"info",'<strong>Revealed, 0 marks.</strong> Answer: '+shown()+' '+esc(x.e)); recalc(); }
+  });
+  input.addEventListener("keydown",function(ev){ if(ev.key==="Enter"){ev.preventDefault();check();} });
+  return c;
+}
+
+function buildAll(){
+  var q=$("#quiz");q.innerHTML="";
+  ["mcq","easy","hard"].forEach(function(tier){
+    q.appendChild(el("div","tier tier-"+tier,'<span class="tier-name">'+TIER_LABEL[tier]+'</span><span class="tier-score" id="ts-'+tier+'"></span>'));
+    ITEMS.filter(function(x){return x.tier===tier;}).forEach(function(x){
+      q.appendChild(x.kind==="mcq"?mcqCard(x):typedCard(x));
+    });
+  });
+  recalc();
+}
+
+var resetTimer=null;
+$("#resetBtn").addEventListener("click",function(){
+  var b=this;
+  if(Object.keys(S).length===0||b.getAttribute("data-armed")==="1"){
+    clearTimeout(resetTimer);b.removeAttribute("data-armed");b.textContent="Reset";
+    S={}; buildAll(); return;
+  }
+  b.setAttribute("data-armed","1");b.textContent="Tap again to reset";
+  resetTimer=setTimeout(function(){b.removeAttribute("data-armed");b.textContent="Reset";},3000);
+});
+
+buildGauge();
+buildStrip();
+buildAll();
+})();
+</script>
+</body>
+</html>

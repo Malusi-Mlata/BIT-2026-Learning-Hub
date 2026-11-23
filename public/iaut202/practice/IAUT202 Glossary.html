@@ -1,0 +1,236 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>IAUT202 Glossary</title>
+<style>
+:root{--bg:#14161a;--card:#1d2026;--line:#323843;--ink:#eceff4;--mut:#9aa4b5;--acc:#ffc400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root{--bg:#f3f1ea;--card:#fff;--line:#d5d2c6;--ink:#1b1d22;--mut:#5b6170;--acc:#9a6d00}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--acc);padding:10px 14px}
+.top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+h1{font:700 18px "Courier New",monospace;margin:0;letter-spacing:.5px;flex:none}
+#q{flex:1;min-width:150px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:8px 10px;font:inherit}
+#q:focus{outline:2px solid var(--acc)}
+button{font:600 14px inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px}
+button.on{background:var(--acc);color:#1a1a1a;border-color:var(--acc)}
+#n{font:700 13px "Courier New",monospace;color:var(--mut)}
+nav{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px}nav button{flex:none}
+main{max-width:900px;margin:0 auto;padding:12px 14px 60px}
+h2{margin:22px 0 8px;font-size:19px;border-bottom:2px solid hsl(var(--h) 70% 55%);padding-bottom:4px}h2 small{color:var(--mut);font-weight:400;font-size:13px}
+.c{background:var(--card);border:1px solid var(--line);border-left:5px solid hsl(var(--h) 70% 55%);border-radius:6px;padding:9px 12px;margin:0 0 8px}
+.c b{display:block;color:hsl(var(--h) 75% 62%)}
+@media(prefers-color-scheme:light){.c b{color:hsl(var(--h) 70% 32%)}}
+.st .c{cursor:pointer}.st .c:not(.sh) span{filter:blur(7px);user-select:none}.st .c:not(.sh)::after{content:"tap to reveal";font-size:12px;color:var(--mut)}
+.none{color:var(--mut);padding:30px 0;text-align:center}
+</style></head><body>
+<header><div class="top"><h1>IAUT202 GLOSSARY</h1><input id="q" type="search" placeholder="Search a term or word in a definition..."><button id="st">Self-test: off</button><span id="n"></span></div><nav id="nav"></nav></header>
+<main id="m"></main>
+<script>
+const T=[
+['Automation Basics','Ch 4',`Automation|Technology that does a process or procedure without human assistance.
+Electric power|Main energy source of automation: moderate cost, easily converted to other forms, carries signals, easily stored.
+Power for process|Energy for the work itself: loading/unloading work units and moving material.
+Power for automation|Energy for the control unit, control signals, data acquisition and information processing.
+Program of instructions|What the system follows each work cycle: set-point, logic, sequence, interactive or intelligent.
+Set-point control|Program that keeps one process parameter at a defined level.
+Interactive program|Cycle needs operator interaction or decisions to cater for variations.
+Control system|Devices that manage and regulate other systems with control signals to reach a desired result.
+Controller|Element that compares and decides the control action.
+Feedback|Output sent back and compared with the set input.
+Actuation system|Turns the controller output into a controlling action on a machine.
+Open-loop control|No feedback, so the output cannot be regulated.
+Closed-loop control|Has a feedback loop that compares output with the set input.
+When open-loop is fine|Simple actions, very reliable actuator, opposing reaction forces too small to matter.
+Advanced automation functions|Safety monitoring, maintenance diagnostics, error detection, error recovery.
+Safety monitoring|Stops the system, raises an alarm or reduces speed when danger appears.
+Safety devices|Vision system, limit switches, heat/smoke detectors, LIDAR, light curtain.
+Maintenance diagnostics|Data to diagnose current failures and predict future ones.
+Status monitoring|Watches the status of sensors and system parameters.
+Failure diagnostics|Compares current values with earlier monitored values to identify a fault.
+Repair procedure|Sub-system recommends repair steps to the maintenance team.
+Error detection|Uses sensors to notice a malfunction and classify the error.
+Random error|Comes from regular operation of the process.
+Systematic error|Has a transferable cause, such as material change or equipment drift.
+Aberration|Error from human mistake or equipment failure.
+Error recovery|Corrective action to resume normal operation: adjust at end of cycle, adjust during cycle, stop and correct, or stop and call for help.`],
+['Industrial Control Systems','Ch 5',`Process industry|Operates on amounts of material (bulk, continuous).
+Discrete industry|Operates on quantities of material (countable units).
+Continuous (analogue) variable|Uninterrupted signal during an operation.
+Discrete variable|Takes values periodically from a range; most common is binary (1s and 0s).
+Continuous control system|Keeps an output variable at a desired level using an input set-point.
+Regulatory control|Holds performance at a value or within a tolerance band.
+Feedforward control|Anticipates and compensates a disturbance before it enters the process.
+Steady-state optimisation|Open-loop optimisation of a performance index; cannot compensate for disturbances.
+Index of performance|The measure being optimised, e.g. production rate.
+Adaptive control|Feedback plus optimal control; alters its algorithm as the environment changes: identification, decision, modification.
+Discrete control system|Parameters and variables are discrete and change at moments defined by the program.
+Event-driven change|Controller acts because an event changed the system state (limit switch senses a part).
+Time-driven change|Controller acts at a set time or after a time lapse (shop clock, heat treating).
+Real-time controller|Responds to a stimulus within a short time.
+Real-time requirements|Process interrupts, timer-initiated actions, computer commands, system/program events, operator events.
+Polling (sampling)|Periodically sampling data from a continuous signal at discrete times.
+Interlock|Safety mechanism where components allow or block a process step unless strict rules are met.
+Interrupt system|Pauses the current program to run a high-priority one (e.g. safety) in real time.
+Exception|Event outside normal operation: quality problem, variable out of range, material shortage, hazard, controller fault.
+Exception handling|Dealing with exceptions; a form of error detection and recovery.`],
+['Sensors and Switches','Ch 6 P1',`Computer-process interface|Sensors, actuators, ADC/DAC and discrete I/O that link the computer to the process.
+Sensor|A transducer that converts a physical stimulus into a more useful form to measure it.
+Transducer|Converts physical quantities to electrical signals, or one electrical signal to another.
+Analogue sensor|Produces a continuous analogue signal.
+Discrete sensor|Output can have only certain values.
+Active sensor|Produces a voltage from the stimulus without external power.
+Passive sensor|Needs an external power supply to work.
+Signal conditioning|Reshapes the sensor signal (amplify, filter, convert) so the controller can use it.
+Sensor performance terms|Range and span, accuracy, non-linearity error, repeatability, stability, dead band/time, resolution, output impedance.
+Static characteristics|Values given once steady-state conditions are reached.
+Dynamic characteristics|Behaviour between an input change and settling to steady state (response, time constant, rise, settling time).
+Time constant|Time to reach 63.2% of the response.
+Transfer function|Relationship between input stimulus and sensor output: S = f(s); linear form S = C + m·s.
+Sensor selection criteria|Measurement needed, output needed, then range, accuracy, linearity, speed, reliability, maintainability, life, power, ruggedness, availability, cost.
+Mechanical switch|Sends a 0 or 1 by opening or closing a contact.
+Pole|A separate circuit completed by the same switching action.
+Throw|Number of individual contacts for each pole.
+SPST / SPDT / DPDT|Single pole single throw, single pole double throw, double pole double throw.
+Switch bounce|Contacts make and break several times, looking like several actions.
+Debouncing|Fix bounce with hardware (flip-flops, clock slower than bounce time) or software.`],
+['Actuators and Motion','Ch 6 P1',`Actuator|Converts a form of energy into force to create linear or rotary motion.
+Actuator families|Electrical, pneumatic, hydraulic.
+DC motor|Electric motor driven by direct current; brushless version used in drones and e-bikes.
+Stepper motor|Turns in fixed steps for precise positioning.
+Servo motor|Motor with feedback for controlled position, speed or torque.
+AC motor|Driven by alternating current: induction or synchronous.
+Linear motor|Produces straight-line motion directly.
+Pump|Moves fluid, e.g. peristaltic or lobe pump.
+Pneumatic actuator|Driven by compressed air or vacuum for rotary or linear motion.
+Leadscrew / ball-screw|Helical thread of set pitch moves the load a fixed distance per revolution.
+Pulley and belt|Pulleys, usually with timing belts, rigidly connect the motor to the mechanism.
+Rack and pinion|Gear on the motor drives a linear rack with equal tooth spacing.`],
+['ADC, DAC and Data','Ch 6 P2',`ADC|Analogue-to-digital converter: turns a sampled analogue signal into a digital code.
+ADC chain|Sensor/transducer, signal conditioning, multiplexer, amplifier, ADC.
+Multiplexer|Switches several signals one at a time into one converter.
+Sampling|Reading the continuous signal at discrete moments.
+Quantisation|Assigning each sample to the nearest of a fixed set of levels.
+Encoding|Writing the quantised level as a binary code.
+Sampling rate|Rate at which the analogue signal is polled.
+Conversion time|Time to convert the sampled signal into a digital code.
+Resolution (ADC)|Set by the number of quantisation levels.
+Conversion method|How the analogue signal is encoded, e.g. successive approximation.
+Quantisation levels|Nq = 2^n, with n the number of bits.
+Level spacing|R_ADC = L / (Nq − 1), L = full-scale range.
+Successive approximation|Trial voltages compared with the input; first is half full scale; bit 1 if remainder exceeds trial, else 0.
+Trial voltage|Reference compared with the input; one per bit.
+DAC|Digital-to-analogue converter: turns computer output into a continuous signal for an analogue actuator.
+Decoding|Turns digital output into analogue values at discrete moments.
+Data holding|Holds each analogue value until the next sampling interval.
+Zero-order hold|Holds each value constant between samples.
+First-order hold|Extends each value with a slope: E(t) = Eo + αt.
+Full-scale output|Maximum output value of a D/A converter.
+DAQ|Data acquisition: taking data from sensors into a computer for processing.
+Binary and pulse data|Discrete data as 0/1 bits, or as a train of pulses.
+Contact I/O|Contacts that open and close to represent binary 0 and 1 to the controller.`],
+['PLC and Discrete Control','Ch 9',`Discrete process control|Control of variables that change at discrete moments, usually binary.
+Logic control|Output depends only on current inputs; no memory, no time dependence.
+Sequence control|Uses internal timing devices to start output changes; usually open loop and cyclical.
+Switching system|Switches outputs on and off in response to events or time.
+Timer|Switches an output on or off at preset times.
+Counter|Counts electrical pulses and stores the count.
+Truth table|Lists every input combination and the resulting output (AND, OR and other gates).
+Ladder logic diagram|Contacts, relays, timers, counters etc. on horizontal rungs between two vertical rails.
+Rung|One horizontal line of a ladder diagram.
+Rail|One of the two vertical lines at the ends of the rungs.
+Ladder elements|Contacts, relays, timers, counters, comparators, math functions, move.
+PLC|Programmable logic controller: industrial computer that executes logic and sequencing.
+PLC processor|Runs logic and sequencing on the inputs to decide the outputs.
+I/O module|The PLC connections to the process.
+Memory unit|Stores the logic, sequencing and I/O programs.
+PLC power supply|Converts 120 V ac to dc voltages of ±5 V for process equipment.
+Programming device|Used to enter and edit the PLC program.
+Input scan|Processor reads inputs and stores them in memory.
+Program scan|Control program runs using the stored input values.
+Output scan|Outputs are updated to match the calculated values.
+Scan time|Time for the three scans: 1 to 25 ms.
+Soft logic|Control algorithms run as high-priority programs under Windows.
+Hard real-time control|PC acts like a PLC; control software has priority over all other software.
+PAC|Programmable automation controller: industrial-hardened with PC features; programmed in C/C++ as well as ladder.
+PLC advantages|Easier than wiring relay panels, reprogrammable, less space, reliable, connects to CIM, more functions.`],
+['Robotics','Ch 8',`Industrial robot|Automatically controlled, reprogrammable, multipurpose manipulator with 3 or more axes, fixed or mobile.
+Manipulator|Body-and-arm plus wrist assembly that moves the end effector.
+Joint|Gives relative motion between links; linear or rotary; also called an axis.
+Link|Rigid member between joints.
+DOF|Degrees of freedom: independent joint motions of the robot.
+L joint (linear)|Translational; link axes parallel.
+O joint (orthogonal)|Translational; link axes perpendicular.
+R joint (rotational)|Rotational; rotation axis perpendicular to the links.
+T joint (twisting)|Rotational; rotation axis parallel to the links.
+V joint (revolving)|Rotational; input link parallel to the rotation axis, output link perpendicular.
+Body-and-arm|Sets the global position of the end effector; commonly 3 axes.
+Wrist assembly|Orients the end effector; 2 or 3 DOF: roll, pitch, yaw.
+End effector|Tool at the end of the wrist: gripper, welding torch, drill, sealant gun.
+Articulated robot|Jointed arm with 6 axes; UR cobots follow this design.
+Polar robot|Polar coordinates, spherical work area; injection moulding, die casting.
+SCARA|Selectively Compliant Arm for Robotic Assembly; rigid vertically; assembly and palletising.
+Cartesian robot|Gantry or rectilinear; 3 orthogonal joints; loading and unloading.
+Delta robot|Overhead base with 3 arms to a platform; high-speed applications.
+Joint drive systems|Electric (preferred), hydraulic (high power and lift), pneumatic (small robots, simple transfer).
+Leadthrough programming|Teach by moving the manipulator through the work cycle; steps stored for playback.
+Powered leadthrough|Teach pendant used to program point-to-point playback robots.
+Teach pendant|Handheld program controller.
+Manual leadthrough|Move joints by hand and store the points; for continuous-path work like spray painting and welding.
+World coordinate system|Origin and axes defined relative to the robot base.
+Tool coordinate system|Axes defined relative to the orientation of the wrist plate (end effector).
+Robot programming language|Textual programming on a computer: better sensors, outputs, logic and communication.
+Basic robot commands|Home, Move, Set, Speed, Wait, Execute, Open, Close, Loop.
+Offline programming|Programmed on a remote terminal and simulated; no robot downtime; needs calibration.
+Control resolution|Smallest addressable step: CR2 = R / (2^B − 1), R = joint range, B = bits.
+Repeatability|Ability to return to a previously taught position.
+Accuracy (robot)|How close the robot gets to the commanded point.`],
+['Pneumatics','Pneumatic Automation',`Pneumatics|Power transfer using a gas, most commonly compressed air.
+System structure|Energy source, input element, processing element, final control element, actuating device.
+Compressor|Energy source: reciprocating piston, screw, radial flow, sliding vane or axial.
+Air receiver|Tank giving constant pressure, emergency supply, cooling and moisture separation.
+Condensate|Water in the air; hardens seals, corrodes, washes out lubrication.
+Service unit|Water separator with filter, pressure gauge, regulator, lubricator.
+Air filter|Stops dirt and separates condensate.
+Pressure regulator|Keeps supply pressure constant despite main-line fluctuations.
+Air lubricator|Lubricates fast oscillating actuators; needed for cylinders over 125 mm.
+Manifold|Distributes air from one supply to several branches.
+Single-acting cylinder|Air drives one direction; spring returns.
+Double-acting cylinder|Air drives both extend and retract.
+Rodless cylinder|Moves a carriage without a piston rod.
+Direct actuation|Input element = control element; simplest.
+Indirect actuation|Input signal pilots a larger valve; for large cylinders or long distances.
+3/2 valve|3 ports, 2 positions; drives a single-acting cylinder or gives a signal.
+5/2 valve|5 ports, 2 positions; drives a double-acting cylinder.
+Port numbering|Supply 1; working 2 and 4; exhaust 3 and 5; pilots 12 (1 to 2) and 14 (1 to 4).
+Actuation methods|Manual (push, detent, pedal), mechanical (spring, roller), pneumatic (direct, piloted).
+Roller valve|Mechanical valve operated by a cylinder cam; senses an end position.
+T-fitting|Splits one air line into two.
+Silencer|Reduces exhaust noise.
+Quick exhaust|Vents a cylinder fast for high speed.
+Solenoid|Electromagnet that shifts a valve electrically.
+Momentary push button|Gives a signal only while held.
+Inductive sensor|Detects metal without contact.
+Advantages of pneumatics|Storage, safety, cleanliness, simple parts, speed, adjustable, overload safe.
+Disadvantages of pneumatics|Needs preparation, force limit (about 20 000 to 30 000 N at 6-7 bar), noisy, costly energy.`],
+['Cascade Circuit Terms','from our circuit tasks',`Cascade circuit|Sequence split into groups; one group line is live at a time.
+Group|Block of steps in which no cylinder appears twice.
+Group line|Air line that supplies the signals of one group.
+Memory valve|Double-pilot 5/2 valve that stays in its last position; switches group lines.
+Signal conflict|Opposing pilot signals present at once; cascade lines prevent it.
+Limit switch a0, a1|Roller valve at a cylinder end: 0 = retracted, 1 = extended.
+Time-delay valve|3/2 valve with reservoir and flow control that delays a signal.
+Pneumatic AND|Two valves in series: air passes only when both are operated.
+Two-hand start|Two push buttons in series so both must be pressed.
+Meter-out flow control|Throttles exhaust air to slow a cylinder.`]];
+const D=T.map(([n,c,s],i)=>({n,c,h:(i*43+35)%360,t:s.trim().split('\n').map(l=>{const k=l.indexOf('|');return[l.slice(0,k),l.slice(k+1)]})}));
+const $=s=>document.querySelector(s),esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+let f=-1,q='',st=false;
+const total=D.reduce((a,d)=>a+d.t.length,0);
+function nav(){$('#nav').innerHTML=`<button data-f="-1" class="${f<0?'on':''}">All (${total})</button>`+D.map((d,i)=>`<button data-f="${i}" class="${f===i?'on':''}">${d.n} (${d.t.length})</button>`).join('')}
+function render(){let n=0;const h=D.map((d,i)=>{if(f>=0&&f!==i)return'';const r=d.t.filter(([a,b])=>!q||(a+' '+b).toLowerCase().includes(q));if(!r.length)return'';n+=r.length;
+return`<h2 style="--h:${d.h}">${esc(d.n)} <small>${esc(d.c)}</small></h2>`+r.map(([a,b])=>`<div class="c" style="--h:${d.h}"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}).join('');
+$('#m').innerHTML=h||'<p class="none">No terms match your search.</p>';$('#m').className=st?'st':'';$('#n').textContent=n+' terms'}
+document.addEventListener('click',e=>{const b=e.target.closest('button'),c=e.target.closest('.c');
+if(b&&b.dataset.f!==undefined){f=+b.dataset.f;nav();render();window.scrollTo(0,0)}
+else if(b&&b.id==='st'){st=!st;b.classList.toggle('on',st);b.textContent='Self-test: '+(st?'on':'off');render()}
+else if(c&&st)c.classList.toggle('sh')});
+$('#q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();render()});
+nav();render();
+</script></body></html>

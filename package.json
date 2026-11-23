@@ -1,0 +1,17 @@
+{
+  "name": "bit-2026-learning-hub",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "cap:sync": "vite build && npx cap sync android",
+    "cap:open": "npx cap open android",
+    "cap:build": "vite build && npx cap copy android && cd android && ./gradlew assembleDebug"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "vite": "^8.3.8"
+  }
+}

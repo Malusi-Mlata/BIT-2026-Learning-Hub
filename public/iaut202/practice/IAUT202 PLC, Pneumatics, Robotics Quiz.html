@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IAUT202 PLC, Pneumatics, Robotics Quiz</title>
+<style>
+:root{--bg:#f4f5fb;--card:#fff;--ink:#1b1f2a;--mute:#5d6577;--line:#dfe3ee;--hd:#161a2b;--a:#7c3aed;--ok:#0f9d58;--no:#dc2626;--b:#2563eb;--w:#d97706;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1220;--card:#181e30;--ink:#eef0f8;--mute:#9aa4bf;--line:#2a3350;--hd:#0a0d18;--a:#a78bfa;--ok:#34d399;--no:#f87171;--b:#60a5fa;--w:#fbbf24;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1220;--card:#181e30;--ink:#eef0f8;--mute:#9aa4bf;--line:#2a3350;--hd:#0a0d18;--a:#a78bfa;--ok:#34d399;--no:#f87171;--b:#60a5fa;--w:#fbbf24;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hd)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--hd);color:#fff;padding:8px 14px}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:1.05rem}
+.sc{display:flex;gap:12px;align-items:center;font-weight:700;margin:4px 0}.sc .bar{flex:1;height:10px;border-radius:5px;background:#ffffff30;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#34d399,#60a5fa,#a78bfa);transition:width .3s}
+nav{display:flex;gap:6px;overflow-x:auto}
+nav button{flex:1;min-width:120px;border:0;border-radius:8px 8px 0 0;padding:7px 8px;background:#ffffff18;color:#fff;font:inherit;font-size:.85rem;cursor:pointer}
+nav button.on{background:var(--a);font-weight:700}nav small{display:block;opacity:.8}
+main{max-width:780px;margin:0 auto;padding:14px 14px 50px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.chip{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font-weight:700}
+.chip.ok{background:var(--ok);border-color:var(--ok);color:#fff}.chip.no{background:var(--no);border-color:var(--no);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--a);border-radius:12px;padding:12px 14px;margin-bottom:12px;scroll-margin-top:170px}
+.rvw .good{display:none}
+pre{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:.78rem;line-height:1.35}svg text{fill:var(--ink);font-size:11px}
+.qn{color:var(--a);font-weight:700}.qn small{color:var(--mute);font-weight:400}.qt{font-weight:600;margin:4px 0 8px}
+.op{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 12px;border-radius:10px;border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.op:hover{border-color:var(--b)}.op.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 20%,transparent)}.op.no{border-color:var(--no);background:color-mix(in srgb,var(--no) 20%,transparent)}
+.dr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}.dr span{flex:1 1 220px}.dr em{color:var(--ok);font-size:.85rem}
+select,input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:8px;padding:6px 8px}
+select.ok,.fb.ok{border-color:var(--ok)}select.no,.fb.no{border-color:var(--no)}
+input{flex:1 1 200px}textarea{width:100%;min-height:90px}
+.bt{border:0;border-radius:8px;padding:7px 12px;background:var(--b);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.bt.g{background:var(--ok)}.bt.r{background:var(--no)}.bt.on{outline:3px solid var(--w)}
+.fb{margin-top:8px;padding:8px 10px;border-radius:8px;border-left:4px solid var(--b);background:var(--bg);font-size:.92rem}.fb.mn{border-color:var(--w)}.fb.md{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--card))}
+.sw{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}.tg.hi{background:var(--ok)}
+.out{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:8px 0}.lp{display:inline-flex;align-items:center;gap:6px}
+.lamp{display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--line);border:2px solid var(--mute)}
+.lamp.on{background:var(--w);border-color:var(--w);box-shadow:0 0 14px var(--w)}
+.bx{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}.bxs{width:26px;height:26px;border:2px solid var(--b);border-radius:5px}.bxs.f{background:var(--b)}
+.tt{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;font:.78rem monospace}.tr{padding:2px 4px;border-radius:5px;border:1px solid var(--line)}.tr.cur{background:var(--a);color:#fff;border-color:var(--a)}
+.rung{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}.ct{padding:4px 8px;border:2px solid var(--line);border-radius:6px;font-size:.85rem}.ct.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 20%,transparent)}
+.warn{font-weight:700;color:var(--no);min-height:1.4em}.hold{touch-action:none;user-select:none}
+:focus-visible{outline:3px solid var(--w);outline-offset:2px}
+</style></head><body>
+<header><div class="top"><b>IAUT202 · PLC · Pneumatics · Robotics</b><button class="bt" id="th">Theme</button></div>
+<div class="sc"><span id="sc"></span><span id="pc"></span><div class="bar"><i id="fl"></i></div></div><nav id="nv"></nav></header>
+<main id="m"></main>
+<script>
+var TF="True|False";
+function mc(q,o,a,s,w,k,b){return{t:"mc",q:q,o:o.split("|"),a:a,s:s,w:w,k:k,b:b}}
+function tf(q,v,s,w){return mc(q,TF,v?0:1,s,w)}
+function ow(q,a,s,k,b){return{t:"ty",m:1,q:q,a:a.split("|"),s:s,k:k,b:b}}
+function lg(q,m,md,s,k){return{t:"lg",m:m,q:q,model:md,s:s,k:k}}
+function sec(n,a){a.forEach(function(x){x.sec=n});return a}
+function stepSVG(seq,cyl){var n=seq.length,W=58,X=34,H=36,h=cyl.length*H+34,s="<svg viewBox='0 0 "+(X+W*n+8)+" "+h+"' width='100%' style='max-width:620px'>";
+ cyl.forEach(function(c,r){var y1=r*H+8,y0=y1+H-12,st=0,k;for(k=0;k<n;k++){if(seq[k][0]==c){st=seq[k][1]=="-"?1:0;break}}
+  var Y=function(v){return v?y1:y0},d="M"+X+","+Y(st);
+  seq.forEach(function(m,k){var xa=X+k*W,xb=xa+W;if(m[0]==c){var nv=m[1]=="+"?1:0;d+=" L"+xa+","+Y(st)+" L"+xa+","+Y(nv)+" L"+xb+","+Y(nv);st=nv}else d+=" L"+xb+","+Y(st)});
+  s+="<path d='"+d+"' fill='none' stroke='var(--a)' stroke-width='2.5'/><text x='6' y='"+(y0-2)+"'>"+c+"</text>"});
+ seq.forEach(function(m,k){s+="<text x='"+(X+k*W+W/2)+"' y='"+(h-8)+"' text-anchor='middle'>"+(m=="T"?"delay":m)+"</text>"});return s+"</svg>"}
+var LAD="IO: I1 START, I2 STOP (pressed = 1), I3 truck in place, I4 box sensor\n    Q1 start lamp, Q2 stop lamp, Q3 run lamp, Q4 conveyor motor,\n    Q5 red, Q6 green, Q7 truck lamp, Q8 box lamp, C1 counter (12), T1 timer (8 s)\n\nR1   --[ I1 ]---------------------------------------( Q1 )\nR2   --[ I2 ]---------------------------------------( Q2 )\nR3   --[ I3 ]---------------------------------------( Q7 )\nR4   --[ I4 ]---------------------------------------( Q8 )\nR5   --[ I3 ]--[/C1.DN]------------------------------( Q5 )   red\nR6   -+[ I1 ]+--[ I3 ]--[/I2]--[/C1.DN]---------------( Q4 )   latched conveyor\n      +[ Q4 ]+\nR7   --[ Q4 ]---------------------------------------( Q3 )   run lamp\nR8   --[ I4 ]--------------[ CTU C1  PRE 12  RESET: I2 or /I3 ]\nR9   --[ always ]----------[ MOVE C1.ACC to MW50 ]\nR10  --[ C1.DN ]--[ I3 ]--[ TON T1  8 s ]\nR11  -+[ C1.DN ]--[/T1.DN ]----------------------------( Q6 )   green steady\n      +[ T1.DN ]--[ FLASH bit ]------------------------( Q6 )   green flashing";
+var CYL=["A","B","C","D"],SEQ=["A+","A-","B+","C+","T","D-","D+","C-","B-"];
+var NAMES=["PLC","Pneumatics","Robotics"];
+var T=[
+[].concat(
+sec("Multiple choice",[
+mc("What does PLC stand for?","Programmed Ladder Circuit|Power Line Controller|Programmable Loop Counter|Programmable Logic Controller",3,"Ch 9 · PLC"),
+mc("Which is NOT a PLC component?","Processor|Input/output module|Hydraulic pump|Memory unit",2,"Ch 9 · PLC Components","Parts: processor, I/O modules, memory, power supply, programming device."),
+mc("What is the order of the PLC operating cycle?","Input scan, program scan, output scan|Program scan, input scan, output scan|Output scan, input scan, program scan|Input scan, output scan, program scan",0,"Ch 9 · PLC Operating Cycle","Scan time is 1 to 25 msec.","IPO: Input, Program, Output."),
+mc("Logic control is a switching system whose output is...","determined only by the current inputs, with no memory|set by internal timing devices|stored in a counter|always closed loop",0,"Ch 9 · Categories of Discrete Control"),
+mc("Which two devices are the common sequencing devices?","Gate and relay|Timer and counter|Sensor and actuator|Rung and rail",1,"Ch 9 · Sequence Control","A timer switches at preset times; a counter counts and stores pulses."),
+mc("What does an up counter do?","Counts down from the preset to zero|Delays an output for a preset time|Counts pulses upward from zero until the preset is reached, then sets its done bit|Converts pulses to voltage",2,"PLC basics (not in slide text)","Example: count 12 boxes past a sensor, then stop the conveyor."),
+mc("A 4-input AND gate outputs 1 when...","at least one input is 1|all four inputs are 1|exactly two inputs are 1|all inputs are 0",1,"Ch 9 · Logic Gates","AND = ALL. OR = at least ONE."),
+mc("Why is an NC pushbutton normally used for STOP?","It is cheaper|Pressing it breaks the circuit, and a broken wire also stops the machine (fail-safe)|It starts the motor faster|It latches the output",1,"PLC basics (not in slide text)","","NO = GO, NC = STOP."),
+mc("What holds a latching circuit on after START is released?","The output own contact in parallel with START|A timer in series|A second STOP|A counter",0,"PLC basics (not in slide text)","Also called a seal-in. An NC STOP in series breaks the latch."),
+mc("Which is an advantage of ladder logic diagrams?","It needs C++ knowledge|It cannot be used on PLCs|It removes the need for inputs|It is familiar to shop personnel and analogous to electrical circuits",3,"Ch 9 · Advantages of Ladder Logic","","FAP: Familiar, Analogous, Principal.")]),
+sec("One word",[
+ow("Two vertical lines a ladder diagram connects to (one word)","rails|rail|power rails","Ch 9 · Ladder Logic"),
+ow("Circuit that keeps an output on after START is released (one word)","latching|latch|latching circuit|seal in","PLC basics"),
+ow("Safety mechanism allowing or stopping a process by strict rules (one word)","interlock|interlocks","Ch 5 · Interlocks"),
+ow("Timer that delays switching ON (x-delay)","on delay|on delay timer|ton","PLC basics"),
+ow("Contact that is open until pressed (abbreviation)","no|normally open","PLC basics"),
+ow("Rows in a 3-input truth table (number)","8","Ch 9 · Truth Tables"),
+ow("PLC scan step that reads the inputs (two words)","input scan","Ch 9 · Operating Cycle"),
+ow("Gate that outputs 1 when at least one input is 1","or|or gate","Ch 9 · Logic Gates"),
+ow("Abbreviation for Programmable Automation Controller","pac","Ch 9 · PAC"),
+ow("Control with no memory and no time dependence: ___ control","logic|logic control","Ch 9 · Discrete Control")]),
+sec("True or false",[
+tf("A PLC cannot be reprogrammed once installed.",0,"Ch 9 · Advantages of PLCs","It can be reprogrammed: a main advantage."),
+tf("Ladder logic is the principal technique for programming PLCs.",1,"Ch 9 · Ladder Logic"),
+tf("Logic control has memory.",0,"Ch 9 · Discrete Control","Logic control has no memory. Sequence control uses timers and counters."),
+tf("A PLC scan time varies between 1 and 25 msec.",1,"Ch 9 · Operating Cycle"),
+tf("An OFF-delay timer keeps its output on for a preset time after the input switches off.",1,"PLC basics")]),
+sec("Explain it",[
+lg("Define a PLC and give 3 advantages.",4,"A PLC (Programmable Logic Controller) is a rugged industrial computer running a stored program: it scans inputs, runs the logic and updates outputs. Advantages (any 3): easier to program than wiring relay panels; can be reprogrammed; less floor space; more reliable, easier maintenance; connects to computer systems; more control functions.","Ch 9","RES: Reprogrammable, Easier, Smaller."),
+lg("Differentiate a 4-input AND gate from a 4-input OR gate with their truth tables.",4,"AND: 1 only when A=B=C=D=1 (one row of 16). OR: 0 only when all inputs are 0 (fifteen rows of 16 give 1). Table of 16 rows ABCD: 0000 gives AND 0, OR 0. Rows 0001 to 1110 give AND 0, OR 1. 1111 gives AND 1, OR 1. Draw all 16 rows in the test.","Ch 9 · Gates","AND = ALL. OR = at least ONE."),
+lg("Why use both NO and NC pushbuttons?",3,"NO is open until pressed, so pressing completes the circuit: START. NC is closed until pressed, so pressing breaks it: STOP. NC for STOP is fail-safe: a broken wire or lost power stops the machine.","PLC basics","NO = GO, NC = STOP."),
+lg("What is a latching circuit?",3,"A circuit that keeps its output on after a momentary START is released. The output own NO contact sits in parallel with START (seal-in); an NC STOP in series breaks the latch. Example: motor start/stop.","PLC basics"),
+lg("What are interlocks and why are they used in industry?",3,"A safety mechanism where components allow or disallow a process unless strict rules are met. Used for safety and equipment protection, e.g. a guard door must be closed before a press runs; forward and reverse contactors cannot be on together.","Ch 5 · Interlocks"),
+lg("Differentiate an ON-delay timer from an OFF-delay timer, with examples.",4,"ON-delay: the output switches on only after the input has been on for the preset time, e.g. an alarm rings 5 seconds after a button press. OFF-delay: the output stays on for the preset time after the input switches off, e.g. a cooling fan runs 30 seconds after the machine stops. Timers count time; counters count pulses.","PLC basics","ON-delay waits BEFORE on. OFF-delay waits AFTER off."),
+lg("State the advantages of ladder logic programming.",3,"Familiar to shop personnel who build, test, maintain and repair the system; analogous to the electrical circuits used for logic and sequence control; the principal technique for programming PLCs.","Ch 9 · Ladder Logic","FAP: Familiar, Analogous, Principal.")]),
+sec("Ladder program (Test 1 Q3)",[
+lg("Out box conveyor: write the ladder program. START lamp only while START (I1) is pressed; STOP lamp only while STOP (I2) is pressed. Truck in place (I3) lights Q7 and the robot red (Q5). START runs the conveyor motor (Q4) only if I3; run lamp Q3 while running. Count 12 boxes at I4 (lamp Q8), then stop the conveyor, show the count in MW50 and change red to green (Q6). If the truck is still there after 8 s, green flashes. STOP stops everything and resets. Write your rungs, then reveal.",10,"<pre>"+LAD+"</pre>One valid solution. I assumed STOP pressed = I2 true. Your lecturer may accept variations.","Test 1 Q3 · Ch 9 · Ladder Logic")])
+),
+[].concat(
+sec("Multiple choice",[
+mc("Pneumatics transfer power using...","Hydraulic oil|Electric current|Compressed air, most commonly|Steam",2,"Pneumatics · What are Pneumatics?"),
+mc("Which is a DISADVANTAGE of pneumatics?","Fire and explosion risk|Needs a compressor running all the time|Loud exhaust noise|Air cannot be stored",2,"Pneumatics · Disadvantages","Others: preparation, force limit (20000 to 30000 N at 6-7 bar), cost."),
+mc("What is the order of the air distribution process?","Atmosphere, compressor, storage, drying, distribution, service unit|Atmosphere, drying, compressor, storage, distribution, service unit|Compressor, atmosphere, storage, service unit, drying, distribution|Storage, compressor, drying, atmosphere, distribution, service unit",0,"Pneumatics · Air Distribution Process"),
+mc("The service unit contains...","Compressor, receiver, dryer|Water separator with filter, pressure gauge, regulator, lubricator|Valve, cylinder, silencer|Relay, solenoid, spring",1,"Pneumatics · Service Unit"),
+mc("What does an air receiver do?","Filters dirt|Lubricates cylinders|Reduces exhaust noise|Gives constant pressure despite fluctuating consumption, plus an emergency supply",3,"Pneumatics · Air Receivers"),
+mc("On a 5/2 valve the supply port is number...","3|5|1|4",2,"Pneumatics · Valves","Supply 1. Working ports 2 and 4. Exhaust 3 and 5."),
+mc("On a 5/2 valve the working ports are...","1 and 3|2 and 4|3 and 5|1 and 5",1,"Pneumatics · Valves","Working = equal numbers. Exhaust = unequal numbers."),
+mc("Indirect actuation is used when...","The cylinder is small and close to the input element|It is the simplest option|The cylinder has a large diameter or the input element is far away|No valve is needed",2,"Pneumatics · Direct and Indirect Actuation"),
+mc("Which is a negative effect of water in a pneumatic system?","Stronger seals|Corrosion|Faster cylinders|Cooler air",1,"Pneumatics · Air Receivers","Also: hardening or swelling of seals, washing out lubrication."),
+mc("A double-acting cylinder...","Returns only by spring|Has no piston|Is driven by air in both directions|Is only used for rotation",2,"Pneumatics · Actuators")]),
+sec("One word",[
+ow("Most common gas used in pneumatics (one word)","air|compressed air","Pneumatics"),
+ow("Tank that stores compressed air (one word)","receiver|air receiver|reservoir","Pneumatics · Air Receivers"),
+ow("Number of the supply port on a 5/2 valve","1","Pneumatics · Valves"),
+ow("Valve with 5 ports and 2 positions (x/x)","5/2","Pneumatics · Valves"),
+ow("Unit that prepares the air before use (two words)","service unit","Pneumatics · Service Unit"),
+ow("Device that keeps supply pressure constant (one word)","regulator|pressure regulator","Pneumatics · Service Unit"),
+ow("Device that stops dirt entering the system (one word)","filter|air filter","Pneumatics · Service Unit"),
+ow("Device that reduces exhaust noise (one word)","silencer","Pneumatics · Fittings"),
+ow("Cylinder with no piston rod (one word)","rodless|rodless cylinder","Pneumatics · Actuators"),
+ow("Ports 2 and 4 are called ___ ports (one word)","working","Pneumatics · Valves")]),
+sec("True or false",[
+tf("A compressor must run continuously because air cannot be stored.",0,"Pneumatics · Advantages","Air can be stored in a reservoir."),
+tf("Pneumatics carries a minimal risk of explosion or fire.",1,"Pneumatics · Advantages"),
+tf("The exhaust ports of a 5/2 valve are numbered 3 and 5.",1,"Pneumatics · Valves"),
+tf("Pneumatic symbols show the size and manufacturer of a component.",0,"Pneumatics · Valves","Symbols do NOT show size, manufacturer, port operation or physical details."),
+tf("In direct actuation the input element is also the control element.",1,"Pneumatics · Direct and Indirect Actuation")]),
+sec("Explain it",[
+lg("Give 4 advantages of pneumatics.",4,"Any 4: storage (air kept in a reservoir, compressor need not run continuously); safety (minimal fire or explosion risk, no electric shock); cleanliness (unlubricated exhaust air is clean); simple, inexpensive components; speed (very fast medium); adjustable speeds and forces; overload safe.","Pneumatics · Advantages","SSCCSAO: Storage, Safety, Clean, Components, Speed, Adjustable, Overload."),
+lg("Give the disadvantages of pneumatics.",3,"Preparation (air needs good preparation; no dirt or condensate); force limit (economical only up to about 20000 to 30000 N at 6-7 bar); noise (loud exhaust, largely solved by silencers); cost (compressed air is a relatively expensive way to convey power).","Pneumatics · Disadvantages","P-F-N-C: Preparation, Force, Noise, Costs."),
+lg("Describe the air distribution process.",3,"Atmosphere, then compressor, storage (receiver), drying, distribution, and finally the service unit at the machine.","Pneumatics · Air Distribution Process"),
+lg("Name the parts of a service unit and give the function of each.",4,"Water separator with air filter: stops dirt and separates condensate. Pressure gauge: shows the pressure. Pressure regulator: gives constant supply pressure despite main-line fluctuations. Air lubricator: lubricates rapidly moving actuators and large cylinders (over 125 mm).","Pneumatics · Service Unit"),
+lg("Differentiate a single-acting from a double-acting cylinder.",3,"Single-acting: air drives the piston in one direction and a spring returns it; controlled by a 3/2 valve. Double-acting: air drives both the outward and return strokes; controlled by a 5/2 valve.","Pneumatics · Actuators and Valves"),
+lg("Differentiate direct from indirect actuation.",3,"Direct: the simplest option; the input element is also the control element (the button operates the cylinder valve directly). Indirect: the usual type for large-diameter cylinders or a large distance between input and working element; the input signal pilots a separate control valve.","Pneumatics · Direct and Indirect Actuation"),
+lg("State the rules for numbering the ports of a 5/2 valve.",3,"Supply port is always 1. Working ports (top) have equal numbers, 2 and 4. Exhaust ports (bottom) have unequal numbers, 3 and 5. Ports are numbered from right to left. Pilot ports follow signal flow: 1 to 2 is port 12, 1 to 4 is port 14.","Pneumatics · Valves")]),
+sec("Draw it (sequence)",[
+lg("Draw the displacement-step diagram for the sequence A+ A- B+ C+ (delay) D- D+ C- B- and split it into cascade groups. Sketch on paper, note your groups here, then reveal.",6,function(){return "<b>Groups:</b> G1: A+ | G2: A- B+ C+ (delay) D- | G3: D+ C- B-. Rule: no cylinder may have both its + and - in one group.<br>"+stepSVG(SEQ,CYL)+"<br>Cylinder D starts extended because its first move is D-. Check whether your lecturer merges the last and first groups, and which limit switches and relays signal each group change."},"Pneumatics · circuit task")])
+),
+[].concat(
+sec("Multiple choice",[
+mc("Which is an INTERNAL robot sensor?","Machine vision|Optical encoder|Tactile sensor|Proximity sensor",1,"Ch 8 P2 · Robotic Sensors","Internal sensors tell the controller where the joints are and how fast they move: potentiometers, encoders, tachometers.","","internal vs external sensors"),
+mc("Which sensor tells the robot it has touched an object?","Tachometer|Potentiometer|Tactile sensor|Optical encoder",2,"Ch 8 P2 · Robotic Sensors","External sensors: tactile, force, proximity, machine vision.","","internal vs external sensors"),
+mc("Which controller has no feedback and uses mechanical limits?","Point-to-point|Limited-sequence|Continuous path|Intelligent",1,"Ch 8 P2 · Limited Sequence Control","Common with pneumatic pick-and-place: air only fully extends or retracts.","","4 controller types"),
+mc("Which controller can decide what to do when an instruction fails?","Limited-sequence|Point-to-point|Continuous path|Intelligent",3,"Ch 8 P2 · Intelligent Control","","LPCI: Limited, Point, Continuous, Intelligent.","4 controller types"),
+mc("Which control type works out the path between the start point and the end point?","Limited-sequence|Point-to-point|Continuous path|Manual",2,"Ch 8 P2 · Continuous Path Control","This is called interpolation. Point-to-point has none.","","point-to-point vs continuous path"),
+mc("A teach pendant is used in...","Manual leadthrough|Powered leadthrough|Offline simulation only|Limited-sequence control",1,"Ch 8 P3 · Programming Methods","","","powered vs manual leadthrough"),
+mc("Manual leadthrough suits which job?","Spray painting (an irregular path)|Pick-and-place of boxes|Counting parts|Loading a conveyor",0,"Ch 8 P3 · Manual Leadthrough","","","powered vs manual leadthrough"),
+mc("Which is a DISADVANTAGE of leadthrough programming?","Operators are easy to train|Production stops while programming (downtime)|No computer skills are needed|The languages are easy to learn",1,"Ch 8 P3 · Advantages and Disadvantages","","","leadthrough pros and cons"),
+mc("Which configuration is used for injection moulding and die casting?","Polar|SCARA|Delta|Cartesian",0,"Ch 8 P1 · Types of Configurations","","","5 configurations"),
+mc("Which is NOT a good sign for a robot application?","Hazardous work|Repetitive work cycle|Frequent changeovers|Multi-shift operation",2,"Ch 8 P2 · Characteristics of Robot Applications","It should be INFREQUENT changeovers.","","justifying robots")]),
+sec("One word",[
+ow("Sensor used for joint velocity feedback (one word)","tachometer|tachometers","Ch 8 P2 · Robotic Sensors","","internal vs external sensors"),
+ow("Sensor used for inspection and guidance: machine ___","vision|machine vision","Ch 8 P2 · Robotic Sensors","","internal vs external sensors"),
+ow("Controller that makes decisions when an instruction fails (one word)","intelligent|intelligent control","Ch 8 P2 · Intelligent Control","","4 controller types"),
+ow("Calculating the path between a start point and an end point is called ___","interpolation","Ch 8 P2 · Continuous Path Control","","point-to-point vs continuous path"),
+ow("Handheld programming controller (two words)","teach pendant|pendant","Ch 8 P3 · Powered Leadthrough","","powered vs manual leadthrough"),
+ow("Robots programmed by moving the arm by hand use ___ leadthrough","manual","Ch 8 P3 · Manual Leadthrough","","powered vs manual leadthrough"),
+ow("Production stops while the robot is programmed. This is factory ___","downtime|down time","Ch 8 P3 · Disadvantages","","leadthrough pros and cons"),
+ow("Robot with 3 orthogonal linear joints (one word)","cartesian|gantry|cartesian robot","Ch 8 P1 · Types of Configurations","","5 configurations"),
+ow("Robot with an overhead base and 3 arms (one word)","delta|delta robot","Ch 8 P1 · Types of Configurations","","5 configurations"),
+ow("Work that is dangerous for humans is called ___ work","hazardous","Ch 8 P2 · Characteristics of Robot Applications","","justifying robots")]),
+sec("True or false",[
+tf("Links are the rigid members between joints.",1,"Ch 8 P1 · Joints and Links"),
+tf("Hydraulic drive is noted for high power and lift capacity.",1,"Ch 8 P1 · Joint Drive System"),
+tf("Limited-sequence control uses feedback loops.",0,"Ch 8 P2 · Limited Sequence Control","It has no feedback."),
+tf("Pneumatic drive is typically used for large, heavy-lift robots.",0,"Ch 8 P1 · Joint Drive System","Pneumatic is limited to smaller robots and simple material transfer."),
+tf("Tactile sensors detect whether contact has been made between robot and object.",1,"Ch 8 P2 · Robotic Sensors")]),
+sec("Explain it",[
+lg("Differentiate internal from external robot sensors, with examples.",4,"Internal sensors give the controller feedback on position, velocity and force: potentiometers and optical encoders for position, tachometers for velocity. External sensors coordinate the robot with other components: tactile and force sensors (contact, safety), proximity sensors (distance), machine vision (inspection, identification, guidance).","Ch 8 P2 · Robotic Sensors"),
+lg("Describe the four types of robot controller.",4,"Limited-sequence: elementary, no feedback, mechanical limits, e.g. pneumatic pick-and-place. Point-to-point: memory, follows a sequence, controls individual positions with feedback, no interpolation. Continuous path: more storage, interpolation between start and end points. Intelligent: interacts with the environment, makes decisions on faults, uses advanced sensors and high-level computer control.","Ch 8 P2 · Robot Control Systems","LPCI: Limited, Point, Continuous, Intelligent."),
+lg("Differentiate point-to-point from continuous path control.",3,"Point-to-point stores individual positions, feedback monitors speed and position, no interpolation. Continuous path has more storage and higher tolerance, and uses interpolation so each joint position and speed is controlled between start and end points, giving control for complex tasks.","Ch 8 P2"),
+lg("Differentiate powered leadthrough from manual leadthrough programming.",3,"Powered: a teach pendant programs point-to-point (playback) robots using switches to move the joints. Manual: the operator moves the manipulator through the work cycle by hand, storing a series of points; used for continuous path robots with irregular motion, e.g. spray painting and welding.","Ch 8 P3 · Programming Methods"),
+lg("Give advantages and disadvantages of leadthrough programming.",4,"Advantages: easy to train operators; a logical process for the manipulator; no computer programming needed; languages easy to learn. Disadvantages: production is disrupted (downtime); economic decline during downtime; the pendant has limited decision logic; not compatible with CAD/CAM and manufacturing databases.","Ch 8 P3 · Advantages and Disadvantages"),
+lg("Name and describe five robot configurations.",4,"Articulated: jointed arm, 6-axis, common. Polar: spherical work area, injection moulding and die casting. SCARA: rigid vertically, assembly and palletising. Cartesian: 3 orthogonal linear joints, loading and unloading. Delta: overhead base with 3 arms, high-speed applications.","Ch 8 P1 · Types of Configurations","A-P-S-C-D: Articulated, Polar, SCARA, Cartesian, Delta."),
+lg("Give the characteristics that justify a robot application.",3,"Hazardous work; repetitive work cycle; difficult handling (large or hot tooling); multi-shift operation; infrequent changeovers; part position and orientation known. Justification: harmful chemical exposure, unsuitable environments for humans, long-term economic benefit, high accuracy and repeatability.","Ch 8 P2 · Characteristics and Justification")])
+)];
+
+var SIM={t:[]};
+function tl(el,ser,col,lab){var N=100,W=300,H=22,s="";ser.forEach(function(a,r){var y0=r*(H+16)+H+8,y1=r*(H+16)+8,p="",pv=null;a.forEach(function(v,i){var x=i*W/N,y=v?y1:y0;if(pv!==null&&pv!==y)p+=" "+x+","+pv;p+=" "+x+","+y;pv=y});s+="<text x='0' y='"+(y1-2)+"'>"+lab[r]+"</text><polyline points='"+p+"' fill='none' stroke='"+col[r]+"' stroke-width='2.5'/>"});el.innerHTML="<svg viewBox='0 0 "+W+" "+(ser.length*(H+16)+6)+"' width='100%' style='max-width:520px'>"+s+"</svg>"}
+function cl(r,c,on){r.querySelector(c).className="lamp "+c.slice(1)+(on?" on":"")}
+function gate(root,or){var v=[0,0,0,0],rows="";
+ for(var r=0;r<16;r++)rows+="<span class='tr' data-r='"+r+"'>"+((r>>3)&1)+((r>>2)&1)+((r>>1)&1)+(r&1)+" gives "+(or?(r?1:0):(r==15?1:0))+"</span>";
+ root.innerHTML="<div class='sw'>"+"ABCD".split("").map(function(c,i){return "<button class='bt tg' data-i='"+i+"'></button>"}).join("")+"</div><div class='out'><i class='lamp lo'></i><b class='ov'></b></div><div class='tt'>"+rows+"</div>";
+ function up(){var r=v[0]*8+v[1]*4+v[2]*2+v[3],o=or?(r>0?1:0):(r==15?1:0);
+  root.querySelectorAll('.tg').forEach(function(b,i){b.textContent="ABCD"[i]+" = "+v[i];b.classList.toggle('hi',!!v[i])});
+  cl(root,'.lo',o);root.querySelector('.ov').textContent="OUTPUT = "+o;
+  root.querySelectorAll('.tr').forEach(function(e){e.classList.toggle('cur',+e.dataset.r==r)})}
+ root.addEventListener('click',function(e){var b=e.target.closest('.tg');if(!b)return;v[+b.dataset.i]^=1;up()});up()}
+function counter(root){var pv=5,acc=0;
+ root.innerHTML="<div class='sw'><label>Preset (boxes) <select class='pvs'><option>3</option><option selected>5</option><option>8</option><option>12</option></select></label><button class='bt pls'>Box passes the sensor (+1)</button><button class='bt r rst'>Reset</button></div><div class='bx'></div><div class='out'><b class='cv'></b><span class='lp'><i class='lamp lm'></i>Conveyor motor</span><span class='lp'><i class='lamp ld'></i>DONE bit</span></div>";
+ function up(){var d=acc>=pv,h="";for(var i=0;i<pv;i++)h+="<i class='bxs"+(i<acc?" f":"")+"'></i>";
+  root.querySelector('.bx').innerHTML=h;root.querySelector('.cv').textContent="ACC "+acc+" / PRE "+pv;cl(root,'.lm',!d);cl(root,'.ld',d)}
+ root.addEventListener('click',function(e){var c=e.target.classList;if(c.contains('pls')){if(acc<99)acc++}else if(c.contains('rst'))acc=0;up()});
+ root.addEventListener('change',function(e){pv=+e.target.value;acc=0;up()});up()}
+function timer(root,off){var inn=0,q=0,t=0,pt=30,H={i:[],q:[]};
+ root.innerHTML="<div class='sw'><button class='bt tg'></button><label>Preset <select><option value='20'>2 s</option><option value='30' selected>3 s</option><option value='50'>5 s</option></select></label></div><div class='out'><span class='lp'><i class='lamp li'></i>Input</span><span class='lp'><i class='lamp lq'></i>Output Q</span><b class='tv'></b></div><div class='tl'></div>";
+ function draw(){cl(root,'.li',inn);cl(root,'.lq',q);root.querySelector('.tv').textContent="Timer "+(t/10).toFixed(1)+" / "+(pt/10)+" s";
+  var b=root.querySelector('.tg');b.textContent="Input "+(inn?"ON":"OFF")+" (tap to switch)";b.classList.toggle('hi',!!inn);tl(root.querySelector('.tl'),[H.i,H.q],['var(--b)','var(--ok)'],['IN','Q'])}
+ function tick(){if(!off){if(inn){if(t<pt)t++;q=t>=pt?1:0}else{t=0;q=0}}else{if(inn){q=1;t=0}else if(q){t++;if(t>=pt){q=0;t=0}}}
+  H.i.push(inn);H.q.push(q);if(H.i.length>100){H.i.shift();H.q.shift()}draw()}
+ root.addEventListener('click',function(e){if(e.target.classList.contains('tg')){inn^=1;draw()}});
+ root.addEventListener('change',function(e){pt=+e.target.value;t=0});
+ SIM.t.push(tick);draw()}
+function latch(root){var st=0,sp=0,q=0;
+ root.innerHTML="<div class='sw'><button class='bt g hold' data-k='s'>Hold START</button><button class='bt r hold' data-k='p'>Hold STOP</button></div><div class='rung'></div><div class='out'><span class='lp'><i class='lamp lm'></i>Motor Q</span><b class='lt'></b></div>";
+ function scan(){q=((st||q)&&!sp)?1:0;var c=function(t,on){return "<span class='ct"+(on?" on":"")+"'>"+t+"</span>"};
+  root.querySelector('.rung').innerHTML=c("START (NO)"+(st?" pressed":""),st)+" OR "+c("Q seal-in (NO)",q)+" AND "+c("STOP (NC)"+(sp?" pressed":" closed"),!sp)+" gives "+c("Motor Q",q);
+  cl(root,'.lm',q);root.querySelector('.lt').textContent=q?(st?"Running (START held)":"Running: Q is holding itself on"):"Stopped"}
+ function set(b,v){if(b.dataset.k=="s")st=v;else sp=v;scan()}
+ ["pointerdown"].forEach(function(n){root.addEventListener(n,function(e){var b=e.target.closest('.hold');if(b)set(b,1)})});
+ ["pointerup","pointerleave","pointercancel"].forEach(function(n){root.addEventListener(n,function(e){var b=e.target.closest&&e.target.closest('.hold');if(b)set(b,0)},true)});
+ root.addEventListener('click',function(e){var b=e.target.closest('.hold');if(b&&e.detail===0){set(b,1);setTimeout(function(){set(b,0)},300)}});scan()}
+function interlock(root){var f=0,r=0,on=1,m="";
+ root.innerHTML="<div class='sw'><button class='bt g' data-k='f'>FORWARD</button><button class='bt g' data-k='r'>REVERSE</button><button class='bt r' data-k='s'>STOP</button><button class='bt tg' data-k='i'></button></div><div class='out'><span class='lp'><i class='lamp lf'></i>Forward contactor</span><span class='lp'><i class='lamp lr'></i>Reverse contactor</span></div><div class='warn'></div>";
+ function up(){cl(root,'.lf',f);cl(root,'.lr',r);var b=root.querySelector('.tg');b.textContent="Interlock "+(on?"ON":"OFF");b.classList.toggle('hi',!!on);
+  root.querySelector('.warn').textContent=f&&r?"DANGER: both contactors are on. Short circuit!":m}
+ root.addEventListener('click',function(e){var k=e.target.dataset.k;if(!k)return;m="";
+  if(k=="f"){if(on&&r)m="Blocked by the interlock. Press STOP first.";else f=1}
+  else if(k=="r"){if(on&&f)m="Blocked by the interlock. Press STOP first.";else r=1}
+  else if(k=="s")f=r=0;else on^=1;up()});up()}
+var SIMS=[
+["Up-Counter (CTU)","Press the button each time a box passes the sensor. The count goes up. When it reaches the preset, DONE turns on and the conveyor stops.","An up counter counts input pulses upward from zero. When the count reaches the preset value, its done bit turns on. Example: count 12 boxes, then stop the conveyor.",counter],
+["On-Delay timer (TON)","Switch the input ON and watch the timer. The output turns on only after the preset time. Switch the input off early and the timer resets.","An on-delay timer switches its output ON only after the input has been on for the preset time. Example: an alarm rings 5 seconds after the button is pressed.",function(r){timer(r,0)}],
+["Off-Delay timer (TOF)","Switch the input ON and the output comes on at once. Switch the input OFF and the output stays on until the preset time is over.","An off-delay timer keeps its output on for the preset time after the input switches off. Example: a cooling fan runs 30 seconds after the machine stops.",function(r){timer(r,1)}],
+["OR gate (4 inputs)","Switch the inputs and watch the output. The current row of the truth table lights up.","An OR gate outputs 1 when at least one input is 1. It outputs 0 only when all inputs are 0. A 4-input truth table has 16 rows.",function(r){gate(r,1)}],
+["AND gate (4 inputs)","Same inputs, different rule. Try to make the output 1.","An AND gate outputs 1 only when all four inputs are 1. That is one row out of 16.",function(r){gate(r,0)}],
+["Latching circuit (seal-in)","Hold START, then let go. The motor stays on. Hold STOP to break the latch.","A latching circuit keeps the output on after the START button is released. The output own contact in parallel with START holds it on (seal-in). A normally closed STOP in series breaks it.",latch],
+["Interlock (forward and reverse)","Press FORWARD, then REVERSE. The interlock blocks the second one. Switch the interlock OFF to see why it matters.","An interlock allows or stops a process unless strict rules are met. Here forward and reverse can never be on together, which protects the motor and the wiring.",interlock]];
+function initSims(){var h="<p style='color:var(--mute);margin:0 0 10px'>Play with each circuit, then read the exam sentence under it.</p>"+SIMS.map(function(x,i){return "<section class='card'><div class='qn'>"+(i+1)+" · "+x[0]+"</div><div class='qt'>"+x[1]+"</div><div class='sim' id='sim"+i+"'></div><div class='fb mn'>Exam sentence: "+x[2]+"</div></section>"}).join("");
+ $("#tab3").innerHTML=h;SIMS.forEach(function(x,i){x[3]($("#sim"+i))});setInterval(function(){SIM.t.forEach(function(f){f()})},100)}
+var S=[{},{},{}],cur=0;
+function $(s){return document.querySelector(s)}
+function mk(q){return q.t=="dd"?q.p.length:q.m||1}
+function nz(x){return x.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+function pts(t,i){var q=T[t][i],s=S[t][i];if(s==null)return 0;
+ if(q.t=="mc")return s==q.a?1:0;
+ if(q.t=="dd")return q.p.reduce(function(n,p,j){return n+(s[j]==p[2]?1:0)},0);
+ if(q.t=="ty")return s.ok?1:0;
+ return s.m=="y"?q.m:0}
+function ans(t,i){var q=T[t][i],s=S[t][i];if(s==null)return false;
+ if(q.t=="mc")return true;
+ if(q.t=="dd")return q.p.every(function(p,j){return s[j]!=null});
+ if(q.t=="ty")return !!s.chk;
+ return !!s.m}
+function body(t,i){var q=T[t][i],s=S[t][i],n=mk(q),d="data-t='"+t+"' data-i='"+i+"'",
+ h="<div class='qn'>Q"+(i+1)+" <small>"+(q.sec||"")+" · "+n+(n>1?" marks":" mark")+(q.s?" · "+q.s:"")+(q.b?" · feeds: "+q.b:"")+"</small></div><div class='qt'>"+q.q+"</div>";
+ if(q.t=="mc")h+=q.o.map(function(o,j){var c="op";if(s!=null){if(j==q.a)c+=" ok";else if(j==s)c+=" no"}return "<button class='"+c+"' data-a='mc' "+d+" data-j='"+j+"'>"+o+"</button>"}).join("");
+ else if(q.t=="dd")h+=q.p.map(function(p,j){var v=s?s[j]:null,c=v==null?"":v==p[2]?"ok":"no";
+  return "<div class='dr'><span>"+p[0]+"</span><select class='"+c+"' data-a='dd' "+d+" data-j='"+j+"'><option value=''>Choose...</option>"+p[1].map(function(o,k){return "<option value='"+k+"'"+(v==k?" selected":"")+">"+o+"</option>"}).join("")+"</select>"+(v!=null&&v!=p[2]?"<em>Answer: "+p[1][p[2]]+"</em>":"")+"</div>"}).join("");
+ else if(q.t=="ty"){h+="<div class='dr'><input data-a='in' "+d+" value=\""+esc(s?s.v:"")+"\" placeholder='Type your answer'><button class='bt' data-a='chk' "+d+">Check</button></div>";
+  if(s&&s.chk)h+="<div class='fb "+(s.ok?"ok":"no")+"'>"+(s.ok?"Correct":"Not quite. Accepted: <b>"+q.a[0]+"</b>")+"</div>"}
+ else{h+="<textarea data-a='in' "+d+" placeholder='Write your answer, then reveal the model answer'>"+esc(s?s.v:"")+"</textarea>";
+  if(!s||!s.rv)h+="<div class='dr'><button class='bt' data-a='rv' "+d+">Reveal model answer</button></div>";
+  else h+="<div class='fb md'><b>Model answer</b><br>"+(typeof q.model=="function"?q.model():q.model)+"</div>"+(s.m?"<div class='dr'><b>"+(s.m=="y"?"Nailed it":"Missed it")+"</b></div>":"<div class='dr'><span>Mark yourself:</span><button class='bt g' data-a='sm' "+d+" data-j='y'>Nailed it</button><button class='bt r' data-a='sm' "+d+" data-j='n'>Missed it</button></div>")}
+ if(ans(t,i)){if(q.w)h+="<div class='fb'>"+q.w+"</div>";if(q.k)h+="<div class='fb mn'>Mnemonic: "+q.k+"</div>"}
+ else if(q.t=="lg"&&s&&s.rv&&q.k)h+="<div class='fb mn'>Mnemonic: "+q.k+"</div>";
+ return h}
+function redraw(t,i){var q=T[t][i],a=ans(t,i),g=a&&pts(t,i)==mk(q),c=$("#c"+t+"_"+i);
+ c.innerHTML=body(t,i);c.className="card"+(g?" good":"");
+ $("#h"+t+"_"+i).className="chip"+(a?(g?" ok":" no"):"");head()}
+function head(){var e=0,m=0;T.forEach(function(a,t){var d=0;a.forEach(function(q,i){m+=mk(q);e+=pts(t,i);d+=ans(t,i)?1:0});
+ $("#tb"+t).innerHTML=NAMES[t]+"<small>"+d+" of "+a.length+" answered</small>"});
+ var p=Math.round(e/m*100);$("#sc").textContent=e+" / "+m+" marks";$("#pc").textContent=p+"%";$("#fl").style.width=p+"%"}
+function show(t){cur=t;for(var k=0;k<4;k++){$("#tab"+k).hidden=k!=t;$("#tb"+k).className=k==t?"on":""}}
+function build(){$("#nv").innerHTML=T.map(function(a,t){return "<button id='tb"+t+"' data-a='tab' data-t='"+t+"'></button>"}).join("")+"<button id='tb3' data-a='tab' data-t='3'>Sim Lab<small>7 circuits you can play with</small></button>";
+ $("#m").innerHTML="<div id='tab3'></div>"+T.map(function(a,t){return "<div id='tab"+t+"'><div class='tools'><button class='bt' data-a='rvw'>Review mode: hide correct</button><button class='bt r' data-a='rt' data-t='"+t+"'>Retry this tab</button></div><div class='chips'>"+a.map(function(q,i){return "<button class='chip' id='h"+t+"_"+i+"' data-a='go' data-t='"+t+"' data-i='"+i+"'>"+(i+1)+"</button>"}).join("")+"</div>"+a.map(function(q,i){return "<section class='card' id='c"+t+"_"+i+"'></section>"}).join("")+"</div>"}).join("");
+ T.forEach(function(a,t){a.forEach(function(q,i){redraw(t,i)})});initSims();show(0)}
+function chk(t,i){var s=S[t][i]||(S[t][i]={v:""});s.chk=true;var v=nz(s.v);s.ok=T[t][i].a.some(function(x){return nz(x)==v});redraw(t,i)}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(!b)return;var a=b.dataset.a,t=+b.dataset.t,i=+b.dataset.i;
+ if(a=="mc"){S[t][i]=+b.dataset.j;redraw(t,i)}
+ else if(a=="chk")chk(t,i);
+ else if(a=="rv"){(S[t][i]=S[t][i]||{v:""}).rv=true;redraw(t,i)}
+ else if(a=="sm"){S[t][i].m=b.dataset.j;redraw(t,i)}
+ else if(a=="tab")show(t);
+ else if(a=="go")$("#c"+t+"_"+i).scrollIntoView({behavior:"smooth",block:"start"});
+ else if(a=="rvw")$("#m").classList.toggle("rvw");
+ else if(a=="rt"){S[t]={};T[t].forEach(function(q,k){redraw(t,k)})}});
+document.addEventListener("change",function(e){var el=e.target;if(el.dataset.a!="dd")return;var t=+el.dataset.t,i=+el.dataset.i,s=S[t][i]=S[t][i]||[];s[+el.dataset.j]=el.value===""?null:+el.value;redraw(t,i)});
+document.addEventListener("input",function(e){var el=e.target;if(el.dataset.a!="in")return;var t=+el.dataset.t,i=+el.dataset.i;(S[t][i]=S[t][i]||{v:""}).v=el.value});
+document.addEventListener("keydown",function(e){var el=e.target;if(e.key=="Enter"&&el.tagName=="INPUT"&&el.dataset.a=="in")chk(+el.dataset.t,+el.dataset.i)});
+$("#th").onclick=function(){var d=document.documentElement;d.dataset.theme=d.dataset.theme=="dark"?"light":"dark"};
+document.documentElement.dataset.theme="dark";
+build();
+</script></body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>INOS202 Exam 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b14;--tx:#e8ecf8;--mu:#94a0bd;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;color:var(--tx);font:15px/1.55 Poppins,"Segoe UI",Arial,sans-serif;background:#070b14;background-image:radial-gradient(circle at 0% 0%,#4c1d9566,transparent 45%),radial-gradient(circle at 100% 0%,#be185d55,transparent 45%);background-attachment:fixed;min-height:100vh}
+#hd{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(7,11,20,.95);backdrop-filter:blur(10px);border-bottom:1px solid #2a3350;padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 8px}
+.r{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:15px;background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tot{font-weight:800;font-size:18px}.sub{color:var(--mu);font-size:12px}
+.bar{height:6px;background:#141b2e;border-radius:4px;margin:6px 0;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#34d399,#38bdf8,#a78bfa)}
+.jb{display:flex;gap:5px;flex-wrap:wrap}.jb button,.ctl button,.ctl select{background:#141b2e;color:var(--tx);border:1px solid #2a3350;border-radius:8px;padding:4px 10px;font:inherit;font-weight:600;cursor:pointer}
+.jb button.g{background:#14532d;border-color:#22c55e}.ctl button.go{background:linear-gradient(90deg,#a78bfa,#f472b6);color:#12081f;border:0}
+#tm{font-weight:800;font-variant-numeric:tabular-nums}#tm.red{color:#f87171}
+main{max-width:880px;margin:0 auto;padding:0 12px 60px}
+.ban{margin:22px 0 8px;padding:12px 16px;border-radius:12px;font-weight:800;letter-spacing:.5px;background:linear-gradient(90deg,#7c3aed,#db2777)}
+.q{scroll-margin-top:var(--hh,190px);background:linear-gradient(135deg,color-mix(in srgb,var(--a) 16%,#0b1020),color-mix(in srgb,var(--b) 8%,#0b1020));border:1px solid #232c47;border-left:6px solid var(--a);border-radius:14px;padding:14px;margin:12px 0;transition:.2s}
+.q:hover{transform:scale(1.01);box-shadow:0 8px 28px color-mix(in srgb,var(--a) 35%,transparent)}
+.q h2{margin:0 0 4px;font-size:18px;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.p{margin-top:12px;padding-top:10px;border-top:1px dashed #2a3350}.pl{font-weight:600}.mk0{color:var(--a);font-weight:800}
+.o{display:block;width:100%;text-align:left;margin:5px 0;padding:8px 12px;border-radius:10px;border:1px solid #2a3350;background:#0b1020;color:var(--tx);font:inherit;cursor:pointer}
+.o.s{border-color:var(--a);background:color-mix(in srgb,var(--a) 20%,#0b1020)}.o.ok{border-color:#22c55e;background:#12351c}.o.no{border-color:#ef4444;background:#3a1416}
+textarea,select{width:100%;background:#0b1020;color:var(--tx);border:1px solid #2a3350;border-radius:10px;padding:9px;font:inherit}textarea{min-height:90px}textarea.c{font-family:Consolas,monospace;min-height:130px}
+table.m{width:100%;border-collapse:collapse}table.m td{padding:5px 3px;border-bottom:1px solid #232c47;vertical-align:top}table.m td:first-child{width:34%;font-weight:600}
+.btn{background:linear-gradient(90deg,var(--a),var(--b));color:#10081c;border:0;border-radius:10px;padding:7px 14px;font:inherit;font-weight:700;cursor:pointer;margin-top:8px}
+.memo{margin-top:10px;padding:10px 12px;background:#0f2a1c;border:1px solid #22c55e;border-radius:10px}.memo ul{margin:4px 0 0 18px;padding:0}
+pre{background:#0b0f1a;border:1px solid #232c47;border-radius:8px;padding:10px;overflow-x:auto;font:13px Consolas,monospace;margin:6px 0}
+.k{color:#c084fc}.n{color:#fbbf24}.cm{color:#6b7794}.w{font-size:13px;color:#fdba74;margin-top:6px}
+.mkr{margin-top:8px}.mkr button{width:36px;height:34px;margin:2px;border-radius:8px;border:1px solid #2a3350;background:#0b1020;color:var(--tx);font-weight:800;cursor:pointer}.mkr button.on{background:linear-gradient(90deg,var(--a),var(--b));color:#10081c;border:0}.mkr button:disabled{opacity:.55;cursor:default}
+.res{background:linear-gradient(135deg,#1a1440,#2b1236);border:1px solid #a78bfa;border-radius:14px;padding:16px;margin:84px 0 0}.res table{width:100%;border-collapse:collapse}.res td,.res th{padding:5px 8px;text-align:left}
+.g{background:#14532d66}.y{background:#71500a66}.rd{background:#7f1d1d66}
+</style></head><body>
+<div id="hd"><div class="r"><h1>INOS202 · Network Optimisation &amp; Security · Exam 1</h1>
+<div class="ctl r"><select id="dur"><option value="60">60 min</option><option value="90" selected>90 min</option><option value="120">120 min</option><option value="150">150 min</option></select><button class="go" id="st" onclick="start()">Start</button><span id="tm">--:--</span><button class="go" onclick="fin()">Finish</button></div></div>
+<div class="r"><span class="tot" id="tt">Marks 0 / 100 · 0%</span><span class="sub" id="ss"></span></div>
+<div class="bar"><i id="pb"></i></div><div class="jb" id="jb"></div></div>
+<main id="app"></main>
+<script>
+const AC=[['#a78bfa','#f472b6'],['#38bdf8','#818cf8'],['#34d399','#22d3ee'],['#fbbf24','#fb7185'],['#f472b6','#c084fc'],['#60a5fa','#34d399'],['#fb923c','#f43f5e'],['#2dd4bf','#a3e635']];
+const L='abcdefghijklmnopqrstuvwxyz';
+const MC=[
+['Which AAA component is automatic and needs no extra steps from the user after login?',['Authentication','Authorization','Accounting','Auditing'],1,'Authorization applies the user’s attributes (privileges) automatically after authentication.'],
+['Besides a switch, which device can act as an 802.1X authenticator?',['Wireless access point','Hub','Repeater','Modem'],0,'Switch or wireless AP relays the client’s details to the authentication server.'],
+['What is a limitation of local AAA authentication?',['No username is needed','Accounts must be configured on every device','It requires RADIUS','It only works on wireless'],1,'Local AAA does not scale and has no fallback; use a server for many devices.'],
+['What is the third step of the TCP three-way handshake?',['Server sends FIN','Client sends SYN','Client acknowledges the server session','Server sends RST'],2,'SYN → SYN-ACK → ACK.'],
+['A tool such as LOIC is typically used for which attack?',['TCP reset','UDP flood','SYN flood','Session hijacking'],1,'UDP flood tools sweep ports with a flood of UDP packets, often from a spoofed host.'],
+['Why is UDP traffic easy to read and alter?',['It has no encryption by default','It uses port 0','It is stateful','It uses SYN flags'],0,'Anyone can see, change and forward unencrypted UDP.'],
+['A normal TCP session is terminated with which flag first?',['ACK','FIN','RST','SYN'],1,'Four-way exchange: FIN, ACK, FIN, ACK.'],
+['What is the default maximum number of secure MAC addresses on a port?',['2','8','1','4'],2,'Default maximum is 1.'],
+['Which violation mode drops frames silently, with no syslog message?',['restrict','shutdown','protect','sticky'],2,'Protect is the least secure mode.'],
+['Port security aging type “inactivity” deletes secure addresses…',['after a fixed time','that are inactive for a set time','and disables the port','that were learned sticky'],1,'Absolute = fixed time; inactivity = idle time.'],
+['Which command disables an unused switch port?',['shutdown','no switchport','clear port','disable'],0,'Shut unused ports (use interface range for many).'],
+['Once the MAC address table is full, the switch treats frames as…',['broadcast storms','unknown unicast and floods them','dropped','known unicast'],1,'This lets the attacker capture traffic in that VLAN.'],
+['An active port with port security (max 1) gets a second device. It becomes…',['forwarding','err-disabled','blocking','a trunk'],1,'Default violation = shutdown, so err-disabled.'],
+['Port security can only be enabled on…',['dynamic auto ports','manually configured access or trunk ports','VLAN 1 only','any port by default'],1,'Use switchport mode access first.'],
+['Which numbered ranges are standard IPv4 ACLs?',['100–199','1–99 and 1300–1999','200–299','2000–2699'],1,'Extended = 100–199 and 2000–2699.'],
+['Which keyword replaces the wildcard mask 0.0.0.0?',['any','host','all','one'],1,'host = match one address; any = 255.255.255.255.'],
+['ACLs do NOT filter packets that originate from…',['the router itself','a switch','a PC','the internet'],0,'Router-generated traffic is not filtered by its own ACLs.'],
+['An inbound ACL filters packets…',['after routing','before routing','TCP only','ICMP only'],1,'Inbound saves routing lookups if the packet is dropped.'],
+['The TCP “established” keyword permits…',['return traffic with ACK or RST set','only SYN','all UDP','ICMP'],0,'It gives basic stateful behaviour.'],
+['Which Diffie-Hellman groups should no longer be used?',['1, 2 and 5','14, 15 and 16','19 and 20','21 and 24'],0,'Use 14+ or the ECC groups.'],
+['A clientless SSL VPN needs…',['a web browser','VPN client software','GRE','MPLS'],0,'IPsec remote access needs a client; SSL can use a browser.'],
+['Which hash produces a 160-bit digest?',['MD5','SHA-1','SHA-256','DES'],1,'MD5 = 128-bit; SHA-1 = 160-bit; prefer SHA-2.'],
+['AES supports which key lengths?',['56 only','128, 192 and 256 bits','40 bits','1024 bits'],1,'AES is the recommended symmetric algorithm.'],
+['Which HTTP method maps to the REST “Update” operation?',['POST','GET','PUT / PATCH','DELETE'],2,'POST create, GET read, PUT/PATCH update, DELETE delete.'],
+['Which data formats can REST APIs return?',['JSON, XML and YAML','HTML only','SQL only','CSV only'],0,'JSON is the most common.'],
+['Which is NOT a configuration management tool?',['Ansible','Puppet','Chef','Wireshark'],3,'Wireshark is a packet sniffer; Ansible, Puppet, Chef, SaltStack manage configs.'],
+['In SDN, the controller populates the…',['flow tables','ARP tables','MAC tables','VLAN lists'],0,'Switches manage flow tables the controller fills in.'],
+['East-West traffic in a data centre is…',['to the internet','between servers inside the data centre','wireless only','management only'],1,'North-South goes off-site.']];
+MC.forEach((x,i)=>{const r=(i*3+1)%4,o=x[1].slice();x[1]=o.map((_,k)=>o[(k-r+4)%4]);x[2]=(x[2]+r)%4});
+const MT=[
+['LAN attack → mitigation',[['MAC table flooding','Port security'],['DHCP spoofing','DHCP snooping'],['ARP poisoning','Dynamic ARP Inspection'],['IP / MAC spoofing','IP Source Guard'],['STP root spoofing','BPDU Guard'],['VLAN hopping','Disable DTP, change native VLAN']]],
+['Crypto and IPsec terms',[['HMAC','Origin authentication with a secret key'],['AES','Symmetric cipher with 128/192/256-bit keys'],['RSA','Asymmetric, uses digital certificates'],['Diffie-Hellman','Shared secret agreed without sending it'],['ESP','Encrypts and authenticates'],['GRE','Carries multicast/routing but does not encrypt']]],
+['ACL, REST and SDN terms',[['access-class','Secures the vty lines'],['ip access-group','Binds an ACL to an interface'],['Implicit deny','Hidden last ACE of every ACL'],['POST','Create'],['Meter table','Rate-limits a flow'],['Southbound API','Controller to switches and routers']]]];
+const PO=[[3,0,5,1,4,2],[4,2,0,5,1,3],[2,5,0,3,4,1]];
+const Qs=[
+{s:'A',t:'AAA, TCP/UDP and Port Security (MCQ)',p:MC.slice(0,14).map(x=>({k:'mcq',m:1,q:x[0],o:x[1],a:x[2],e:x[3]}))},
+{s:'A',t:'ACLs, IPsec, REST and SDN (MCQ)',p:MC.slice(14).map(x=>({k:'mcq',m:1,q:x[0],o:x[1],a:x[2],e:x[3]}))},
+{s:'A',t:'Mix and Match',p:MT.map((x,i)=>({k:'mat',m:6,q:'Match each item to its description: '+x[0],pr:x[1],ord:PO[i]}))},
+{s:'B',t:'AAA and TCP/UDP Vulnerabilities',p:[
+{k:'txt',m:5,q:'Explain the three AAA components and the three roles in 802.1X.',b:['Authentication – verifies who the user is','Authorization – controls what the user can do after login','Accounting – logs usage (commands, times, bytes) for auditing/billing','Supplicant = client device; authenticator = switch or AP that relays the request','Authentication server validates the identity (RADIUS or TACACS+)']},
+{k:'txt',m:5,q:'Describe a TCP SYN flood and a UDP flood, and state why UDP is more exposed.',b:['SYN flood: many SYNs sent to the server','Server replies SYN-ACK and waits; attacker never completes the handshake','Half-open connections exhaust the server, valid users are refused','UDP flood: flood of UDP packets, often spoofed, sweeping ports; closed ports return ICMP unreachable using up bandwidth','UDP has no encryption by default and no handshake or sequencing']}]},
+{s:'B',t:'Port Security',p:[
+{k:'txt',m:4,q:'Explain how port security stops MAC table flooding and name the three violation modes with their behaviour.',b:['Limits the number of valid source MACs allowed on a port','Shutdown (default): err-disabled, syslog, counter increases','Restrict: drops unknown MACs, syslog and counter','Protect: drops unknown MACs silently, no syslog']},
+{k:'txt',m:6,c:1,q:'Write the configuration for Fa0/5: access port, port security on, maximum 2 MACs, sticky learning, restrict mode.',b:['interface fa0/5','switchport mode access','switchport port-security','switchport port-security maximum 2','switchport port-security mac-address sticky','switchport port-security violation restrict'],w:'Watch out: set switchport mode access first, otherwise the port-security command is rejected.'}]},
+{s:'B',t:'ACLs',p:[
+{k:'txt',m:4,q:'Give the wildcard mask for (i) the subnet 192.168.20.64/26 and (ii) the single host 10.1.1.5. [2 + 2]',b:['(i) 255.255.255.255 − 255.255.255.192 = 0.0.0.63','(i) ACE: 192.168.20.64 0.0.0.63','(ii) 10.1.1.5 0.0.0.0','(ii) same as the keyword host 10.1.1.5']},
+{k:'txt',m:5,c:1,q:'Write a named extended ACL BLOCK-WEB that denies HTTP and HTTPS from 192.168.30.0/24 to any network, permits everything else, and apply it inbound on G0/0/1.',b:['ip access-list extended BLOCK-WEB','deny tcp 192.168.30.0 0.0.0.255 any eq 80','deny tcp 192.168.30.0 0.0.0.255 any eq 443','permit ip any any','interface g0/0/1','ip access-group BLOCK-WEB in'],w:'Watch out: without the final permit, the implicit deny drops all other traffic. (5 marks: any five correct lines.)'},
+{k:'txt',m:3,q:'State where standard and extended ACLs should be placed and why.',b:['Standard ACLs filter on source only, so place close to the destination','Extended ACLs filter on source, destination and ports, so place close to the source','Saves bandwidth by dropping unwanted traffic early']}]},
+{s:'B',t:'IPsec',p:[
+{k:'txt',m:4,q:'Name the four elements of secure communications and one technology for each.',b:['Data integrity – hashing (MD5 / SHA)','Origin authentication – HMAC','Data confidentiality – symmetric/asymmetric encryption (AES, RSA)','Non-repudiation – digital signature (only the sender has it)']},
+{k:'txt',m:4,q:'Explain the IPsec framework building blocks.',b:['Protocol: AH (authentication only) or ESP (encryption plus authentication)','Confidentiality: DES, 3DES, AES or SEAL','Integrity: HMAC with MD5 or SHA; authentication by PSK or RSA certificates','Diffie-Hellman for secure key exchange (use group 14 or higher)']}]},
+{s:'B',t:'REST and Software-Defined Networking',p:[
+{k:'txt',m:3,q:'What makes an API RESTful?',b:['Client-server separation','Stateless – no client data stored on the server between requests','Cacheable responses; works over HTTP with a URI and a data format (JSON/XML/YAML)']},
+{k:'txt',m:4,q:'Give the HTTP-method-to-CRUD mapping and the parts of a RESTful request.',b:['POST = Create, GET = Read','PUT/PATCH = Update, DELETE = Delete','Request: API server and resource','Query: format, key (authorisation) and parameters']},
+{k:'txt',m:3,q:'Explain the control plane, the data plane and the role of the SDN controller.',b:['Control plane = brain, makes forwarding decisions','Data plane = forwards traffic using control-plane information','Controller centralises the control plane and populates the devices’ flow tables']},
+{k:'txt',m:4,q:'Define northbound and southbound APIs and name the three flow table types.',b:['Northbound API: controller to applications','Southbound API: controller to devices (e.g. OpenFlow)','Flow table matches packets and sets actions; group table triggers actions on flows','Meter table rate-limits traffic']}]}];
+Qs.forEach((q,i)=>{q.a=AC[i%8];q.p.forEach((p,j)=>{p.st={ans:-1,txt:'',sel:[],rev:false,mk:null}})});
+/*CODE*/
+let FIN=false,TL=0,TI=null;const $=id=>document.getElementById(id);
+const KW=/\b(interface|switchport|port-security|mode|access|ip|access-list|extended|permit|deny|tcp|any|eq|maximum|sticky|violation|restrict|mac-address|access-group|in)\b/g;
+function hl(c){return c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(KW,'<span class="k">$1</span>').replace(/\b(\d[\d.]*)\b/g,'<span class="n">$1</span>')}
+const mx=q=>q.p.reduce((s,p)=>s+p.m,0),eq=q=>q.p.reduce((s,p)=>s+(p.st.mk||0),0);
+function head(){let a=0,b=0,done=0,all=0;Qs.forEach(q=>{const e=eq(q);q.s==='A'?a+=e:b+=e;q.p.forEach(p=>{all++;if(p.st.mk!==null)done++})});
+$('tt').textContent='Marks '+(a+b)+' / 100 · '+(a+b)+'%';$('ss').textContent='Section A '+a+' / 46 · Section B '+b+' / 54';$('pb').style.width=(100*done/all)+'%';
+$('jb').innerHTML=Qs.map((q,i)=>'<button class="'+(q.p.every(p=>p.st.mk!==null)?'g':'')+'" onclick="document.getElementById(\'q'+i+'\').scrollIntoView({behavior:\'smooth\'})">Q'+(i+1)+'</button>').join('');
+$('app').style.paddingTop=($('hd').offsetHeight+4)+'px';document.documentElement.style.setProperty('--hh',($('hd').offsetHeight+10)+'px');return[a,b]}
+function pick(i,j,v){const s=Qs[i].p[j].st;if(s.rev)return;s.ans=v;draw()}
+function msel(i,j,r,v){const s=Qs[i].p[j].st;if(s.rev)return;s.sel[r]=v;draw()}
+function ta(i,j,v){Qs[i].p[j].st.txt=v}
+function memo(i,j){const p=Qs[i].p[j],s=p.st;s.rev=true;
+if(p.k==='mcq')s.mk=s.ans===p.a?1:0;else if(p.k==='mat')s.mk=p.pr.filter((x,r)=>s.sel[r]===x[1]).length;draw()}
+function mk(i,j,v){if(FIN)return;Qs[i].p[j].st.mk=v;draw()}
+function pv(q,i,j){const p=q.p[j],s=p.st;let h='<div class="p"><span class="pl">('+(L[j])+')</span> <span class="mk0">['+p.m+']</span> ';
+if(p.k==='mcq'){h+=p.q+p.o.map((t,r)=>{let c='o';if(s.rev){if(r===p.a)c+=' ok';else if(r===s.ans)c+=' no'}else if(r===s.ans)c+=' s';return'<button class="'+c+'" onclick="pick('+i+','+j+','+r+')"><b>'+'ABCD'[r]+'.</b> '+t+'</button>'}).join('');if(s.rev)h+='<div class="memo"><b>Answer: '+'ABCD'[p.a]+'.</b> '+p.e+'</div>'}
+else if(p.k==='mat'){const ds=p.ord.map(k=>p.pr[k][1]);h+=p.q+'<table class="m">'+p.pr.map((x,r)=>'<tr><td>'+x[0]+'</td><td><select '+(s.rev?'disabled':'')+' onchange="msel('+i+','+j+','+r+',this.value)"><option value="">— choose —</option>'+ds.map(d=>'<option '+(s.sel[r]===d?'selected':'')+'>'+d+'</option>').join('')+'</select>'+(s.rev&&s.sel[r]!==x[1]?'<div class="sub">✔ '+x[1]+'</div>':'')+'</td></tr>').join('')+'</table>'}
+else{h+=p.q+'<textarea class="'+(p.c?'c':'')+'" '+(s.rev?'readonly':'')+' placeholder="'+(p.c?'Write the configuration as you would on paper…':'Write your answer…')+'" oninput="ta('+i+','+j+',this.value)">'+s.txt+'</textarea>';
+if(s.rev)h+='<div class="memo"><b>Memo</b>'+(p.c?'<pre>'+hl(p.b.join('\n'))+'</pre><div class="w">⚠️ '+p.w+'</div>':'<ul>'+p.b.map(x=>'<li>'+x+'</li>').join('')+'</ul>')+'</div>'}
+if(p.k!=='mcq'&&p.k!=='mat'&&!s.rev)h+='<button class="btn" onclick="memo('+i+','+j+')">Show memo</button>';
+if(p.k!=='txt'&&!s.rev)h+='<button class="btn" onclick="memo('+i+','+j+')">Show memo</button>';
+if(s.rev)h+='<div class="mkr">Your mark: '+Array.from({length:p.m+1},(_,k)=>'<button '+(FIN?'disabled ':'')+'class="'+(s.mk===k?'on':'')+'" onclick="mk('+i+','+j+','+k+')">'+k+'</button>').join('')+'</div>';return h+'</div>'}
+function draw(){const t=head();let h=FIN?resCard(t):'';let sec='';
+Qs.forEach((q,i)=>{if(q.s!==sec){sec=q.s;h+='<div class="ban">SECTION '+q.s+' — '+(q.s==='A'?'MULTIPLE CHOICE AND MIX AND MATCH (46 marks)':'WRITTEN QUESTIONS (54 marks)')+'</div>'}
+h+='<div class="q" id="q'+i+'" style="--a:'+q.a[0]+';--b:'+q.a[1]+'"><h2>Question '+(i+1)+' · '+q.t+' <span class="sub">['+mx(q)+']</span></h2>'+q.p.map((p,j)=>pv(q,i,j)).join('')+'</div>'});
+$('app').innerHTML=h;$('app').style.paddingTop=($('hd').offsetHeight+4)+'px'}
+function resCard(t){const tot=t[0]+t[1];const rows=Qs.map((q,i)=>{const e=eq(q),m=mx(q),r=e/m;return{i,e,m,r,c:r>=.75?'g':r>=.5?'y':'rd'}});const lo=[...rows].sort((a,b)=>a.r-b.r).slice(0,2).map(x=>'Q'+(x.i+1)).join(' and ');
+return'<div class="res"><h2 style="margin-top:0">'+(tot>=75?'🏆':tot>=50?'👍':'💪')+' '+tot+' / 100</h2><p>Section A: <b>'+t[0]+' / 46</b> · Section B: <b>'+t[1]+' / 54</b></p><table><tr><th>Question</th><th>Earned</th><th>Max</th></tr>'+rows.map(x=>'<tr class="'+x.c+'"><td>Q'+(x.i+1)+'</td><td>'+x.e+'</td><td>'+x.m+'</td></tr>').join('')+'</table><p>Revise first: <b>'+lo+'</b></p><button class="btn" style="--a:#a78bfa;--b:#f472b6" onclick="location.reload()">Try again</button></div>'}
+function tick(){TL--;const m=Math.max(TL,0);$('tm').textContent=String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');$('tm').className=TL<=600?'red':''}
+function start(){if(TI||FIN)return;TL=+$('dur').value*60+1;$('dur').disabled=true;$('st').disabled=true;tick();TI=setInterval(tick,1000)}
+function fin(){if(FIN)return;FIN=true;clearInterval(TI);draw();window.scrollTo({top:0,behavior:'smooth'})}
+draw();window.addEventListener('resize',draw);
+</script></body></html>
